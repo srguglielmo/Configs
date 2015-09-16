@@ -1,0 +1,18 @@
+# SSH client config
+
+Host *
+	AddressFamily inet
+	Compression yes
+	EscapeChar none
+	ExitOnForwardFailure yes
+	ForwardX11Trusted no
+	HashKnownHosts yes
+	IdentitiesOnly yes
+	PreferredAuthentications publickey,keyboard-interactive,password
+	ProxyCommand none
+	RekeyLimit 32M 30m
+	RSAAuthentication no
+	ServerAliveCountMax 3
+	ServerAliveInterval 10
+	UpdateHostKeys ask
+	VisualHostKey yes
