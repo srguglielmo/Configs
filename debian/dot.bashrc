@@ -25,3 +25,4 @@ alias mv='mv -i'
 alias top=htop
 alias gpg=gpg2
 alias g=grep
+alias checkbat='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
