@@ -1,0 +1,15 @@
+[user]
+	name = Stephen R Guglielmo
+	email = srg@guglielmo.us
+[push]
+	default = nothing
+[core]
+	editor = vim
+	autocrlf = input
+	whitespace = blank-at-eol,blank-at-eof,space-before-tab,indent-with-non-tab,tabwidth=4
+	eol = lf
+	compression 9
+[transfer]
+	fsckObjects = true
+[color]
+	ui = auto
