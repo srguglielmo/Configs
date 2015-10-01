@@ -1,0 +1,50 @@
+# Tor configuration for *.guglielmo.us.
+# See tor-service-defaults-torrc for other defaults
+
+# Testing
+DisableNetwork 0
+
+# Don't listen for SOCKS.
+SocksPort 0
+
+#ORPort 167.114.152.100:443 # Nyx
+#ORPort [2607:5300:100:200::1608]:443 # Nyx
+#ORPort 188.166.118.215:443 # Gaia
+#ORPort [2a03:b0c0:2:d0::72:9001]:443 # Gaia
+
+# The IP address or full DNS name for incoming connections to your
+# relay.
+#Address nyx.guglielmo.us
+#Address gaia.guglielmo.us
+
+# Outbound address
+#OutboundBindAddress 167.114.152.100 # Nyx
+#OutboundBindAddress 2607:5300:100:200::1608 # Nyx
+#OutboundBindAddress 188.166.118.215 # Gaia
+#OutboundBindAddress 2a03:b0c0:2:d0::72:9001 # Gaia
+
+# Log stats on connecting clients every 24h
+EntryStatistics 1
+
+# A handle for your relay, so people don't have to refer to it by key.
+#Nickname NyxGuglielmoUS
+#Nickname GaiaGuglielmoUS
+
+# Speed limits
+#BandwidthRate 80 MBits # Nyx
+#BandwidthBurst 100 MBits # Nyx
+#BandwidthRate 275 MBits # Gaia
+#BandwidthBurst 300 MBits #Gaia
+
+ContactInfo 0xD9E2501E1584232D Stephen R Guglielmo <guglielmo.us>
+
+# Run a directory service
+#DirPort 167.114.152.100:9030 # Nyx
+#DirPort 188.166.118.215:9030 # Gaia
+
+# Fingerprints of other relays I run
+MyFamily 0EF5E5FFC5D1EABCBDA1AFF6F6D6325C5756B0B2,FB5FF60F5EBA010F8A45AC6ED31A4393718A2C31
+
+# No exits.
+ExitPolicy reject *:*
+ExitPolicy reject6 *:*
