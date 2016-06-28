@@ -1,15 +1,14 @@
 [user]
 	name = Stephen R Guglielmo
-	email = srg@guglielmo.us
+	#email = srg@
 [push]
 	default = nothing
 [core]
 	editor = vim
 	autocrlf = input
-	whitespace = blank-at-eol,blank-at-eof,space-before-tab,indent-with-non-tab,tabwidth=4
-	eol = lf
+	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
 	compression = 9
-[transfer]
+[fetch]
 	fsckObjects = true
-[color]
-	ui = auto
+[receive]
+	fsckObjects = true
