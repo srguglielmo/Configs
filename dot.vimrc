@@ -2,6 +2,8 @@
 set backspace=indent,eol,start	" Backspace over autoindents, lines, and start of insert mode
 set errorbells					" Beep or flash screen on errors
 set ignorecase					" Ignore case in search patterns
+set modeline					" Enable modelines
+set modelines=5					" Search first/last 5 lines of file for the modeline
 set smartcase					" If search has upper case, ignore ignorecase
 set spell						" Enable spell-checking
 set spelllang=en_us				" Spell checking language
@@ -30,3 +32,12 @@ set smartindent					" Enable smart-indent
 set smarttab					" Enable smart-tabs
 set softtabstop=4				" Number of spaces per tab; Same as tabstop
 set tabstop=4					" Width of an actual tab character
+
+" Append modeline after last line in buffer.
+function! AppendModeline()
+	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+		\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+	call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
