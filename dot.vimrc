@@ -5,7 +5,7 @@ set ignorecase					" Ignore case in search patterns
 set modeline					" Enable modelines
 set modelines=5					" Search first/last 5 lines of file for the modeline
 set smartcase					" If search has upper case, ignore ignorecase
-set spell						" Enable spell-checking
+set nospell						" Enable spell-checking
 set spelllang=en_us				" Spell checking language
 set undolevels=500				" Number of undo levels
 set visualbell					" Use visual bell (no beeping)
