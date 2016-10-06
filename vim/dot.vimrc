@@ -14,8 +14,6 @@ set visualbell					" Use visual bell (no beeping)
 set background=dark				" I'm using a dark terminal background, affects syntax
 set hlsearch					" Highlight all search results
 set linebreak					" Break lines at words
-set list						" Show whitespace
-set listchars=tab:»-,trail:·	" Use these marks for whitespace.
 set number						" Show line numbers
 set ruler						" Show row and column ruler information
 set scrolloff=10				" Number of lines of context above/below cursor
@@ -32,12 +30,3 @@ set smartindent					" Enable smart-indent
 set smarttab					" Enable smart-tabs
 set softtabstop=4				" Number of spaces per tab; Same as tabstop
 set tabstop=4					" Width of an actual tab character
-
-" Append modeline after last line in buffer.
-function! AppendModeline()
-	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-		\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-	call append(line("$"), l:modeline)
-endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
