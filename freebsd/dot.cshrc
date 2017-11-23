@@ -1,8 +1,3 @@
-# $FreeBSD$
-#
-# /etc/csh.cshrc - System tcsh config file
-#
-
 alias	rm	"rm -i"
 alias	l	"ls -aloh"
 alias	genpass "apg -a 0 -n 10 -m 12 -x 32 -M SCNL -s"

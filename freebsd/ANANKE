@@ -1,5 +1,6 @@
 #
 # ANANKE -- kernel configuration file for FreeBSD/amd64
+# Last updated for FreeBSD 6?
 #
 
 ident		ANANKE
@@ -101,7 +102,7 @@ options 	_KPOSIX_PRIORITY_SCHEDULING	# P1003.1B extensions
 options 	PRINTF_BUFR_SIZE=128# Prevent printf output being interspersed	
 options 	KBD_INSTALL_CDEV	# CDEV entry in /dev
 options 	INCLUDE_CONFIG_FILE	# Include this file in kernel
-#options		AUDIT				# Event Auditing
+#options		AUDIT			# Event Auditing
 
 # Pseudo devices.
 device		random				# Entropy device

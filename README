@@ -1,5 +1,1 @@
-Various configuration files, because I'm too lazy to write them over and over when I configure a new system.
-
-Also used to sync across systems and to reference as examples for others.
-
-Distro/OS specific are in dirs. Nonspecific configs are in the root.
+Dotfiles and some config files.
