@@ -8,7 +8,7 @@
 # options below (prompts, aliases, etc) depend on them.
 
 function command_not_found_handler {
-	printf "\t¯\_(ツ)_/¯\n"
+	printf "\t\t¯\_(ツ)_/¯\n"
 	exit 127
 }
 
@@ -16,21 +16,24 @@ function command_not_found_handler {
 # and git status/branch.
 # Called from my-zle-line-init() and my-zle-keymap-select().
 function indicate-zle-mode {
-	# main is viins
+	#RPS1='${vcs_info_msg_0_} ' # The zsh built-in vcs_info
+	RPS1='$(git_super_status) ' # zsh-git-prompt from GitHub
+
+	# Print the Vi mode zle is in
 	if [[ $KEYMAP == "main" ]]; then
-		RPS1='${vcs_info_msg_0_} %F{251}[%F{040}INS%F{251}]%f'
+		# main is viins mode
+		RPS1+='%F{251}[%F{040}INS%F{251}]%f'
 
 	elif [[ $KEYMAP == "vicmd" ]]; then
-		RPS1='${vcs_info_msg_0_} %F{251}[%K{088}%F{227}%BCMD%b%k%F{251}]%f'
+		RPS1+='%F{251}[%K{088}%F{227}%BCMD%b%k%F{251}]%f'
 
 	elif [[ $KEYMAP == "viopp" ]]; then
-		RPS1='${vcs_info_msg_0_} %F{251}[%K{088}%F{227}%BOPP%b%k%F{251}]%f'
+		RPS1+='%F{251}[%K{088}%F{227}%BOPP%b%k%F{251}]%f'
 
 	elif [[ $KEYMAP == "visual" ]]; then
-		RPS1='${vcs_info_msg_0_} %F{251}[%K{088}%F{227}%BVIS%b%k%F{251}]%f'
+		RPS1+='%F{251}[%K{088}%F{227}%BVIS%b%k%F{251}]%f'
 
 	else
-		RPS1='${vcs_info_msg_0_} '
 		RPS1+="%F{251}[%K{088}%F{227}%BERR/$KEYMAP%b%k%F{251}]%f"
 	fi
 
@@ -43,7 +46,7 @@ function my-zle-keymap-select {
 	# Set RPS1
 	indicate-zle-mode
 
-	# Anonymous function. Executed immediately.
+	# Anonymous function, executed immediately.
 	# Returns the last program's exit code for use in in $PS1.
 	function {
 		return $__prompt_status
@@ -63,7 +66,6 @@ function my-zle-line-init {
 ###########
 # PROMPTS #
 ###########
-# For colors, https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
 
 # The main prompt
 PS1="%F{057}%n%F{251}@%F{172}%M%f "				# user@host
@@ -79,26 +81,21 @@ PS1+=')'										# end if
 PS1+="%F{040}%(2L.++.%#)%f "					# Display ++ if in a subshell, else %#
 
 # Git info in the right prompt. RPS1 is set via the zle functions above.
-autoload -Uz vcs_info							# Load the vcs_info module
-zstyle ':vcs_info:*' enable git					# Only use git (not svn, etc)
-zstyle ':vcs_info:*' actionformats '%F{251}[%F{227}%K{088}%b/%a%k%F{251}]%f'
-zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
-zstyle ':vcs_info:*' branchformat '%b'			# %b
-zstyle ':vcs_info:*' check-for-changes true		# Enable use of %c and %u
-zstyle ':vcs_info:*' stagedstr '%F{057}S '		# %c
-zstyle ':vcs_info:*' unstagedstr '%F{172}U '	# %u
-precmd () { vcs_info }							# Execute `vcs_info` just before each prompt
-RPS1=""											# This must be set here to display the zle KEYMAP in RPS1 in the very first prompt
-
-# The other prompts
-PS2="%_> "										# Waiting for input
-PS3="?# "										# When within `select` loop
-PS4="+%N:%i> "									# Debugging; `setopt XTRACE`
+#autoload -Uz vcs_info							# Load the vcs_info module
+#zstyle ':vcs_info:*' enable git				# Only use git (not svn, etc)
+#zstyle ':vcs_info:*' actionformats '%F{251}[%F{227}%K{088}%b/%a%k%F{251}]%f'
+#zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
+#zstyle ':vcs_info:*' branchformat '%b'			# %b
+#zstyle ':vcs_info:*' check-for-changes true	# Enable use of %c and %u
+#zstyle ':vcs_info:*' stagedstr '%F{057}S '		# %c
+#zstyle ':vcs_info:*' unstagedstr '%F{172}U '	# %u
+#precmd () { vcs_info }							# Execute `vcs_info` just before each prompt
+RPS1=""											# Mmust be set here to display the zle KEYMAP in RPS1 in the very first prompt
 
 ###########
 # OPTIONS #
 ###########
-# Only non-default options are set below.
+# Only non-default options are set below
 
 # Directory
 setopt AUTO_CD AUTO_PUSHD
@@ -114,7 +111,6 @@ setopt COMPLETE_IN_WORD				# Must be set for the _prefix completer
 setopt GLOB_COMPLETE				# Use a completion menu for glob pattern matching
 setopt LIST_PACKED					# Pack more info in the completion list
 setopt LIST_ROWS_FIRST				# Left to right, not up to down
-#setopt MENU_COMPLETE				# Start completing on the first tab
 #setopt REC_EXACT					# Accept exact command match if it exists
 
 # Expansion/Globbing
@@ -125,7 +121,7 @@ setopt MARK_DIRS					# Append / to dirs resulting from globbing
 setopt NUMERIC_GLOB_SORT			# Sort numeric filenames numerically
 setopt REMATCH_PCRE					# Use the PCRE library/module
 #unsetopt UNSET						# Required for zsh-syntax-highlighting
-setopt WARN_CREATE_GLOBAL
+#setopt WARN_CREATE_GLOBAL			# zsh-git-prompt will complain with this on
 #setopt WARN_NESTED_VAR				# Also required for zsh-syntax-highlighting
 
 # History
@@ -169,19 +165,6 @@ setopt PIPE_FAIL
 #setopt COMBINING_CHARS				# Enabled in /etc/zshrc on MacOS
 unsetopt SINGLE_LINE_ZLE			# Not even in KSH emulation mode
 
-################
-# KEY BINDINGS #
-################
-bindkey -v										# Vi style in zle
-#bindkey '^i' complete-word						# Required for _expand
-
-# Load user-contrib widgets that match history based onthe current line prefix
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-
-bindkey '^[[A' up-line-or-beginning-search		# Up arrow calls the above widgets
-bindkey '^[[B' down-line-or-beginning-search	# Down arrow
-
 #######
 # ZLE #
 #######
@@ -198,6 +181,22 @@ zle -N zle-line-init my-zle-line-init
 # while the line editor is active. $KEYMAP within the function is the
 # new keymap. The old keymap is passed as the sole argument. 
 zle -N zle-keymap-select my-zle-keymap-select
+
+################
+# KEY BINDINGS #
+################
+bindkey -v										# Vi style in zle
+#bindkey '^i' complete-word						# Required for _expand
+
+# Load user-contrib widgets that match history based onthe current line prefix
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+
+bindkey '^[[A' up-line-or-beginning-search		# Up arrow calls the above widgets
+bindkey '^[[B' down-line-or-beginning-search	# Down arrow
+
+# ctrl+space to accept the autosuggestion
+#bindkey '^ ' autosuggest-accept
 
 #############
 # VARIABLES #
@@ -226,7 +225,7 @@ WATCHFMT='%n has %a %l from %m'
 # Environment vars
 export EDITOR=vim
 export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
-#export LESS='--LONG-PROMPT --hilite-unread'
+export LESS='--LONG-PROMPT'
 export LESSHISTFILE=/dev/null
 export LESSSECURE=1
 export PAGER=less
@@ -235,8 +234,14 @@ export VISUAL=vim
 ###########
 # ALIASES #
 ###########
+
+# Homebrew's thefuck
+if [[ -f /usr/local/bin/thefuck ]]; then
+	eval $(thefuck --alias)
+fi
+
 alias cp='cp -iv'
-alias dqr='diff -qr'
+alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias l='ls -aFGhl'
 alias lp='ls -aeFGhlO'
@@ -256,19 +261,26 @@ alias -s css=$EDITOR
 alias -s html=$EDITOR
 alias -s js=$EDITOR
 alias -s log=$PAGER
+alias -s md=$PAGER
 alias -s php=$EDITOR
 alias -s txt=$EDITOR
 
-unalias run-help
-unalias which-command
+# If set, unset
+unalias run-help 2>/dev/null
+unalias which-command 2>/dev/null
 
 ##############
 # COMPLETION #
 ##############
 
-# Homebrew's zsh-completions package
-if [[ -d /usr/local/share/zsh-completions ]]; then
-	fpath=(/usr/local/share/zsh-completions $fpath)
+# Setup the ZSH function path
+$fpath=()
+if [[ "$(uname)" == "Darwin" ]]; then
+	# Homebrew's zsh-completions
+	$fpath=(/usr/local/share/zsh-completions)
+	
+	# Homebrew's zsh
+	$fpath=($fpath /usr/local/share/zsh/site-functions /usr/local/Cellar/zsh/5.4.2_1/share/zsh/functions)
 fi
 
 #zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
@@ -323,10 +335,46 @@ autoload -Uz compinit && compinit
 #	return 1
 #}
 
-# Homebrew's zsh-syntax-highlighting package.
-# Must be at the end of zshrc.
+# Homebrew's zsh-autosuggestions
+if [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+	#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+	ZSH_AUTOSUGGEST_USE_ASYNC=true
+else
+	echo ""
+	echo "Missing zsh-autosuggestions!"
+	echo ""
+fi
+
+# Homebrew's zsh-git-prompt
+if [[ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ]]; then
+	source /usr/local/opt/zsh-git-prompt/zshrc.sh
+	#GIT_PROMPT_EXECUTABLE="haskell"				# Install instructions broken as of 2017-11-24l
+	ZSH_THEME_GIT_PROMPT_PREFIX="%F{251}[%f"
+	ZSH_THEME_GIT_PROMPT_SUFFIX="%F{251}]%f"
+	#ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+	#ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
+	#ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
+	#ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
+	#ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{✚%G%}"
+	#ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
+	#ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
+	#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
+	#ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
+else
+	echo ""
+	echo "Missing zsh-git-prompt!"
+	echo ""
+fi
+
+# Homebrew's zsh-syntax-highlighting
+# Must be at the end of zshrc
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+	echo ""
+	echo "Missing zsh-syntax-highlighting!"
+	echo ""
 fi
 
 # EOF
