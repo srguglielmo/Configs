@@ -225,7 +225,7 @@ WATCHFMT='%n has %a %l from %m'
 # Environment vars
 export EDITOR=vim
 export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
-export LESS='--LONG-PROMPT'
+export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
 export LESSSECURE=1
 export PAGER=less
