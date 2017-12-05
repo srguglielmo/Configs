@@ -1,0 +1,7 @@
+[Unit]
+Description=Pacman mirrorlist update
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/reflector --country 'United States' --country 'Canada' --country 'Mexico' --connection-timeout 5 --sort score --threads 2 --protocol https --score 10 --age 2 --completion-percent 100 --save /etc/pacman.d/mirrorlist
+

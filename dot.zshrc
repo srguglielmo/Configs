@@ -1,38 +1,79 @@
 # srg's ~/.zshrc
-# This is run for interactive shells.
+# This is run for interactive shells
+
+###########
+# ALIASES #
+###########
+
+# Homebrew's thefuck
+if [[ -f /usr/local/bin/thefuck ]]; then
+	eval $(/usr/local/bin/thefuck --alias)
+fi
+
+# Normal
+alias cp='cp -iv'
+alias dqr='diff -qr --exclude=".git"'
+alias dv='dirs -v'
+alias gp='git pull'
+alias gs='git status'
+alias l='ls -aFGhl'
+alias le='less'
+alias lintphp='find . -type f -name "*.php" -exec php -l {} \; | less'
+alias lp='ls -aeFGhlO'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias vi='vim'
+alias vim='vim -p'
+
+# Global
+alias -g G='|grep'
+alias -g L='|less'
+
+# Suffix ("text.NAME" -> "VALUE text.NAME")
+alias -s css=$EDITOR
+alias -s html=$EDITOR
+alias -s js=$EDITOR
+alias -s log=$PAGER
+alias -s md=$PAGER
+alias -s php=$EDITOR
+alias -s txt=$EDITOR
+
+# If set, unset
+unalias run-help 2>/dev/null
+unalias which-command 2>/dev/null
 
 #############
 # FUNCTIONS #
 #############
-# Function definitions are first in this file because other
-# options below (prompts, aliases, etc) depend on them.
+
+# Functions to autoload from $fpath
+autoload -Uz compinit							# The new completion system
+autoload -Uz down-line-or-beginning-search		# Contrib; Match history down based on prefix
+autoload -Uz up-line-or-beginning-search		# Contrib; Mtch history up based on prefix
+autoload -Uz vcs_info							# Contrib; version control info
 
 function command_not_found_handler {
 	printf "\t\t¯\_(ツ)_/¯\n"
 	exit 127
 }
 
-# Set the right prompt based on zle vi mode (cmd or insert)
-# and git status/branch.
-# Called from my-zle-line-init() and my-zle-keymap-select().
-function indicate-zle-mode {
-	#RPS1='${vcs_info_msg_0_} ' # The zsh built-in vcs_info
-	RPS1='$(git_super_status) ' # zsh-git-prompt from GitHub
+# Set the right prompt based on the current zle vi mode and the
+# git status/branch. This is called from my-zle-line-init()
+# and my-zle-keymap-select().
+function indicate-my-zle-mode {
+	RPS1='${vcs_info_msg_0_} '			# zsh's vcs_info
+	#RPS1='$(git_super_status) '		# GitHub's zsh-git-prompt (slow!)
 
-	# Print the Vi mode zle is in
+	# Print the vi mode that zle is in
 	if [[ $KEYMAP == "main" ]]; then
-		# main is viins mode
+		# "main" is insert mode
 		RPS1+='%F{251}[%F{040}INS%F{251}]%f'
-
 	elif [[ $KEYMAP == "vicmd" ]]; then
 		RPS1+='%F{251}[%K{088}%F{227}%BCMD%b%k%F{251}]%f'
-
 	elif [[ $KEYMAP == "viopp" ]]; then
 		RPS1+='%F{251}[%K{088}%F{227}%BOPP%b%k%F{251}]%f'
-
 	elif [[ $KEYMAP == "visual" ]]; then
 		RPS1+='%F{251}[%K{088}%F{227}%BVIS%b%k%F{251}]%f'
-
 	else
 		RPS1+="%F{251}[%K{088}%F{227}%BERR/$KEYMAP%b%k%F{251}]%f"
 	fi
@@ -41,91 +82,130 @@ function indicate-zle-mode {
 	zle reset-prompt
 }
 
-# Sets the zle mode (cmd or insert) in RPS1
+# Sets the zle mode and preserve exit status of previous command
 function my-zle-keymap-select {
 	# Set RPS1
-	indicate-zle-mode
+	indicate-my-zle-mode
 
-	# Anonymous function, executed immediately.
-	# Returns the last program's exit code for use in in $PS1.
+	# Anonymous function, executed immediately, returns the last
+	# program's exit code for use in in $PS1
 	function {
 		return $__prompt_status
 	}
 }
 
 # Since we use $? in PS1 below, we need to preserve the exit status
-# of the last executed command in a temp variable.
+# of the last executed command in to a temp variable
 function my-zle-line-init {
 	# Set RPS1
-	indicate-zle-mode
+	indicate-my-zle-mode
 
 	# Set $__prompt_status to the last cmd's return code
 	typeset -g __prompt_status="$?"
 }
 
+# Gather the git info just before each prompt
+function precmd {
+	vcs_info
+}
+
+# Custom function to handle command history.
+# This defangs "dangerous" commands by recording
+# them in history prefixed with a comment (#).
+#function zshaddhistory() {
+#	if [[ $1 =~ "^ " ]]; then
+		# This will respect HIST_IGNORE_SPACE.
+#		return 0
+#	elif [[ $1 =~ "cp\ *|mv\ *|rm\ *|cat\ *\>|pv\ *|dd\ *" ]]; then
+#		1="# $1"
+#	fi
+	
+	# Write to usual history location
+#	print -sr -- ${1%%$'\n'}
+	
+	# Instruct the shell itself not to save the history (we just did).
+#	return 1
+#}
+
+################
+# KEY BINDINGS #
+################
+
+bindkey -v										# Vi style in zle
+#bindkey '^i' complete-word						# Required for _expand
+#bindkey '^ ' autosuggest-accept				# ctrl+space to accept the autosuggestion
+
+# Bind arrow up/down to the contrib functions to match history based on the current line prefix
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
 ###########
-# PROMPTS #
+# MODULES #
 ###########
 
-# The main prompt
-PS1="%F{057}%n%F{251}@%F{172}%M%f "				# user@host
-PS1+="%F{251}%~%f"								# directory
-PS1+=$'\n'										# newline
-PS1+='%(?.'										# If exit code is 0
-	#PS1+='(%?%)'								#   just display the exit code, no color
-PS1+='.'										# else
-	PS1+='%K{088}%F{227}%B'						#   start color and bold
-	PS1+='(%?%)'								#   print exit code
-	PS1+='%b%f%k '								#   end bold and color
-PS1+=')'										# end if
-PS1+="%F{040}%(2L.++.%#)%f "					# Display ++ if in a subshell, else %#
+# Provides extensions to completion listings:
+# Ability to highlight matches, ability to scoll, and different styles
+zmodload zsh/complist
 
-# Git info in the right prompt. RPS1 is set via the zle functions above.
-#autoload -Uz vcs_info							# Load the vcs_info module
-#zstyle ':vcs_info:*' enable git				# Only use git (not svn, etc)
-#zstyle ':vcs_info:*' actionformats '%F{251}[%F{227}%K{088}%b/%a%k%F{251}]%f'
-#zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
-#zstyle ':vcs_info:*' branchformat '%b'			# %b
-#zstyle ':vcs_info:*' check-for-changes true	# Enable use of %c and %u
-#zstyle ':vcs_info:*' stagedstr '%F{057}S '		# %c
-#zstyle ':vcs_info:*' unstagedstr '%F{172}U '	# %u
-#precmd () { vcs_info }							# Execute `vcs_info` just before each prompt
-RPS1=""											# Mmust be set here to display the zle KEYMAP in RPS1 in the very first prompt
+# Provides `strftime` builtin and a few read-only time-related variables
+zmodload zsh/datetime
+
+# Useful in recovery/emergency situations
+#zmodload zsh/files
+
+# Provide the -pcre-match comparison operator
+zmodload zsh/pcre
+
+# Scheduled commands
+#zmodload zsh/sched
+
+# Provides `zstat` (but don't override `stat` too)
+zmodload -F zsh/stat b:zstat
+
+# Create TCP connections with `ztcp`
+# and FTP connections with `zftp`
+#zmodload zsh/net/tcp
+#zmodload zsh/zftp
+
+# Zsh Line Editor (zle)
+zmodload zsh/zle
+zmodload zsh/zleparameter
+
+# Provides `zstyle` and few other builtins
+zmodload zsh/zutil
 
 ###########
 # OPTIONS #
 ###########
-# Only non-default options are set below
 
 # Directory
 setopt AUTO_CD AUTO_PUSHD
-setopt CHASE_DOTS					# Resolve .. to physical dir
-setopt PUSHD_IGNORE_DUPS
+#setopt CHASE_DOTS					# Resolve .. to physical dir
+setopt PUSHD_IGNORE_DUPS			# Ignore dupes in the directory stack
 #setopt PUSHD_MINUS					# Swap the meaning of + and -
 
 # Completion
 setopt ALWAYS_TO_END				# Move cursor to end, even if we completed in a word
-setopt COMPLETE_ALIASES
 setopt BASH_AUTO_LIST				# Show completion menu on 2nd tab
+setopt COMPLETE_ALIASES
 setopt COMPLETE_IN_WORD				# Must be set for the _prefix completer
 setopt GLOB_COMPLETE				# Use a completion menu for glob pattern matching
-setopt LIST_PACKED					# Pack more info in the completion list
+#setopt LIST_PACKED					# Pack more info in the completion list
 setopt LIST_ROWS_FIRST				# Left to right, not up to down
 #setopt REC_EXACT					# Accept exact command match if it exists
 
 # Expansion/Globbing
-#unsetopt CASE_GLOB CASE_MATCH		# Make globbing and regexes case-insensitive
+unsetopt CASE_GLOB					# Make globbing case-insensitive
 #setopt EXTENDED_GLOB				# Use # ~ ^ for globbing
-#setopt GLOB_DOTS					# Dangerous
 setopt MARK_DIRS					# Append / to dirs resulting from globbing
 setopt NUMERIC_GLOB_SORT			# Sort numeric filenames numerically
-setopt REMATCH_PCRE					# Use the PCRE library/module
-#unsetopt UNSET						# Required for zsh-syntax-highlighting
-#setopt WARN_CREATE_GLOBAL			# zsh-git-prompt will complain with this on
-#setopt WARN_NESTED_VAR				# Also required for zsh-syntax-highlighting
+#setopt RC_EXPAND_PARAM				# Expand arrays
+setopt REMATCH_PCRE					# =~ uses zsh/pcre (else uses the sytem ereg libraries)
+#unsetopt UNSET						# zsh-syntax-highlighting complains with this unset
+setopt WARN_CREATE_GLOBAL			# zsh-git-prompt complains with this set
+#setopt WARN_NESTED_VAR				# vcs_info and zsh-syntax-highlighting complains with this set
 
 # History
-unsetopt EXTENDED_HISTORY			# I don\'t care about timestamps
 setopt HIST_FCNTL_LOCK				# Lock the history file when writing
 setopt HIST_IGNORE_ALL_DUPS			# Remove old entries if they\'re dupes
 setopt HIST_IGNORE_SPACE			# Ignore commands with spaces prepended
@@ -140,10 +220,12 @@ unsetopt SHARE_HISTORY				# Not even in ksh mode
 
 # Input/Output
 unsetopt CLOBBER					# Don\'t let > and >> clobber files (use >! or >>! instead)
+#setopt CORRECT						# Spell correction on commands
+#setopt CORRECT_ALL					# Spell correction on args
 unsetopt FLOW_CONTROL				# Disable ctrl+s and ctrl+q
 setopt INTERACTIVE_COMMENTS			# Allow comments on interactive sessions
 setopt HASH_EXECUTABLES_ONLY		# Only "cache" the path to to exec files
-setopt PATH_DIRS					# Search path even for commands with slashes
+#setopt PATH_DIRS					# Search path even for commands with slashes
 unsetopt PATH_SCRIPT				# Don\'t search in path for a passed script argument
 unsetopt RM_STAR_SILENT				# Not even in ksh/sh emulation mode
 setopt RM_STAR_WAIT					# Pause 10 sec after a rm wildcard
@@ -156,14 +238,126 @@ setopt PROMPT_SUBST					# Required for vcs_info in prompt
 #setopt TRANSIENT_RPROMPT
 
 # Scripts/functions
+setopt C_BASES						# Use 0xFF for hex numbers instead of 16#FF
+setopt LOCAL_LOOPS					# Use break/continue strictly
 unsetopt MULTI_FUNC_DEF				# Don\'t allow func definitions with multiple names
-unsetopt MULTIOS					# Don\'t automatically add extra tees and pipes
-setopt PIPE_FAIL
-#setopt SOURCE_TRACE					# Display names of files as they\'re sourced
+#unsetopt MULTIOS					# Don\'t automatically add extra tees and pipes
+setopt PIPE_FAIL					# Return the exit status of the rightmost non-zero
+#setopt SOURCE_TRACE				# Display names of files as they\'re sourced
+#setopt XTRACE						# Print commands and args as they are executed
 
 # ZLE
 #setopt COMBINING_CHARS				# Enabled in /etc/zshrc on MacOS
 unsetopt SINGLE_LINE_ZLE			# Not even in KSH emulation mode
+
+##########
+# STYLES #
+##########
+
+# Completion
+zstyle ':completion:*' group-name ''						# Separate completion types in the menu
+zstyle ':completion:*' list-colors ''						# Color listings (req group-name='')
+zstyle ':completion:*' menu select=2						# Use arrow keys with menu, min results
+zstyle ':completion:*' use-compctl false					# Never use old style completions
+
+zstyle ':completion:*:descriptions' format "%F{green}%d%f"	# Show the completion type in menu
+
+#zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
+#zstyle ':completion::expand:*' tag-order expansions
+#zstyle ':completion:*:approximate:*' max-errors 2 numeric	# Allow up to 2 spelling mistakes
+#zstyle ':completion:*:match:*' original true
+#zstyle ':completion:*:cd:*' ignore-parents parent pwd		# Completion won't match parent (cd ../<TAB>)
+#zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
+#    'local-directories named-directories'					# Don't complete from cdpath
+##zstyle ':completion:*' verbose true
+#zstyle ':completion:*:default' list-colors '=(#b)*(XX *)=32=31' '=*=32'
+##zstyle ':completion:*' use-cache on
+##zstyle ':completion:*' cache-path ~/.zsh/cache
+#zstyle ':completion:*' squeeze-slashes true
+#zstyle ':completion:*' file-sort modification
+
+# compinstall setup
+#zstyle ':completion:*' completions 1
+#zstyle ':completion:*' expand prefix suffix
+#zstyle ':completion:*' glob 1
+#zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+#zstyle ':completion:*' list-suffixes true
+#zstyle ':completion:*' prompt '%e found.'
+#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+#zstyle :compinstall filename '/Users/tuf83079/.zshrc'
+# End compinstall
+
+# Git info
+zstyle ':vcs_info:*' actionformats '%F{251}[%F{227}%K{088}%b/%a%k%F{251}]%f'
+zstyle ':vcs_info:*' branchformat '%b'				# %b
+zstyle ':vcs_info:*' check-for-changes true			# Enable use of %c and %u
+zstyle ':vcs_info:*' enable git						# Only use git (not svn, etc)
+zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
+zstyle ':vcs_info:*' stagedstr '%F{057}S '			# %c
+zstyle ':vcs_info:*' unstagedstr '%F{172}U '		# %u
+
+#############
+# VARIABLES #
+#############
+# Lowercase variables are arrays
+
+# ZSH vars
+cdpath=(. ~/Code)									# PATH, but for cd
+#CORRECT_IGNORE=									# Ignore pattern for spell correction
+#CORRECT_IGNORE_FILE=								# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
+DIRSTACKSIZE=10										# Directory history size
+#fignore=()											# File suffixes to ignore during completion
+
+$fpath=()											# Search path for function definitions
+if [[ "$(uname)" == "Darwin" ]]; then
+	# Completions provided by additional homebrew packages
+	$fpath=($fpath /usr/local/share/zsh/site-functions)
+
+	# Homebrew's zsh-completions
+	$fpath=($fpath /usr/local/share/zsh-completions)
+	
+	# Homebrew's zsh
+	$fpath=($fpath /usr/local/opt/zsh/share/zsh/functions)
+fi
+
+HISTFILE=~/.zhistory
+#HISTORY_IGNORE										# Ignore pattern for history entries
+HISTSIZE=10000
+#KEYTIMEOUT=										# In hundredths of a second
+LANG=en_US.UTF-8
+module_path=(/usr/local/opt/zsh/lib)				# Search path for zmodload
+path=(/usr/local/bin /usr/bin /bin /usr/sbin /sbin)
+
+# The main prompt
+PS1="%F{057}%n%F{251}@%F{172}%M%f "					# user@host
+PS1+="%F{251}%~%f"									# directory
+PS1+=$'\n'											# newline
+PS1+='%(?.'											# If exit code is 0
+	#PS1+='(%?%)'									#   just display the exit code, no color
+PS1+='.'											# else
+	PS1+='%K{088}%F{227}%B'							#   start color and bold
+	PS1+='(%?%)'									#   print exit code
+	PS1+='%b%f%k '									#   end bold and color
+PS1+=')'											# end if
+PS1+="%F{040}%(2L.++.%#)%f "						# Display ++ if in a subshell, else %#
+
+#REPORTMEMORY=200									# Min size in MB to report; Doesn't work right in MacOS
+REPORTTIME=8										# Min seconds to report
+RPS1=""												# Must be empty to display the zle KEYMAP in RPS1 in the very first prompt
+SAVEHIST=10000
+#SPROMPT=											# Prompt used for spell correction
+TIMEFMT='[%*E] [%U CPUusr] [%S CPUsys] [%MMiB Max]'	# Formatting for REPORTMEMORY and REPORTTIME
+TMPPREFIX=/tmp/zsh
+watch=(all)
+
+# Environment vars
+export EDITOR=vim
+export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
+export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
+export LESSHISTFILE=/dev/null
+export LESSSECURE=1
+export PAGER=less
+export VISUAL=vim
 
 #######
 # ZLE #
@@ -182,199 +376,38 @@ zle -N zle-line-init my-zle-line-init
 # new keymap. The old keymap is passed as the sole argument. 
 zle -N zle-keymap-select my-zle-keymap-select
 
-################
-# KEY BINDINGS #
-################
-bindkey -v										# Vi style in zle
-#bindkey '^i' complete-word						# Required for _expand
+##################
+# INITIALIZATION #
+##################
 
-# Load user-contrib widgets that match history based onthe current line prefix
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+# Execute the completion function (which was autoloaded above)
+compinit
 
-bindkey '^[[A' up-line-or-beginning-search		# Up arrow calls the above widgets
-bindkey '^[[B' down-line-or-beginning-search	# Down arrow
-
-# ctrl+space to accept the autosuggestion
-#bindkey '^ ' autosuggest-accept
-
-#############
-# VARIABLES #
-#############
-
-# ZSH vars
-cdpath=(. ~/Code)					# PATH, but for cd
-DIRSTACKSIZE=10						# Directory history size
-#fignore=()							# File suffixes to ignore during completion
-HISTFILE=~/.zhistory
-#HISTORY_IGNORE
-HISTSIZE=10000
-#KEYTIMEOUT
-LANG=en_US.UTF-8
-path=(/usr/local/bin /usr/bin /bin /usr/sbin /sbin)
-#REPORTMEMORY=200					# Min size in MB. See TIMEFMT.
-REPORTTIME=8						# Seconds.
-SAVEHIST=10000
-#SPROMPT
-TIMEFMT='[%*E] [%Us CPUu] [%Ss CPUs] [%MMiB Max]'
-TMPPREFIX=/tmp/zsh
-watch=(notme)
-WATCHFMT='%n has %a %l from %m'
-#WORDCHARS
-
-# Environment vars
-export EDITOR=vim
-export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
-export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
-export LESSHISTFILE=/dev/null
-export LESSSECURE=1
-export PAGER=less
-export VISUAL=vim
-
-###########
-# ALIASES #
-###########
-
-# Homebrew's thefuck
-if [[ -f /usr/local/bin/thefuck ]]; then
-	eval $(thefuck --alias)
-fi
-
-alias cp='cp -iv'
-alias dqr='diff -qr --exclude=".git"'
-alias dv='dirs -v'
-alias l='ls -aFGhl'
-alias lp='ls -aeFGhlO'
-alias mv='mv -iv'
-alias rm='rm -iv'
-alias gp='git pull'
-alias gs='git status'
-alias vi='vim'
-alias vim='vim -p'
-
-# Global
-alias -g G='|grep'				# See GREP_OPTIONS
-alias -g L='|less'				# and LESS
-
-# Suffix ("text.NAME" -> "VALUE text.NAME")
-alias -s css=$EDITOR
-alias -s html=$EDITOR
-alias -s js=$EDITOR
-alias -s log=$PAGER
-alias -s md=$PAGER
-alias -s php=$EDITOR
-alias -s txt=$EDITOR
-
-# If set, unset
-unalias run-help 2>/dev/null
-unalias which-command 2>/dev/null
-
-##############
-# COMPLETION #
-##############
-
-# Setup the ZSH function path
-$fpath=()
-if [[ "$(uname)" == "Darwin" ]]; then
-	# Homebrew's zsh-completions
-	$fpath=(/usr/local/share/zsh-completions)
-	
-	# Homebrew's zsh
-	$fpath=($fpath /usr/local/share/zsh/site-functions /usr/local/Cellar/zsh/5.4.2_1/share/zsh/functions)
-fi
-
-#zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
-#zstyle ':completion::expand:*' tag-order expansions
-#zstyle ':completion:*:approximate:*' max-errors 2 numeric	# Allow up to 2 spelling mistakes
-#zstyle ':completion:*:match:*' original true
-#zstyle ':completion:*:cd:*' ignore-parents parent pwd		# Completion won't match parent (cd ../<TAB>)
-zstyle ':completion:*' menu select=3						# Use arrow keys with menu, min results
-zstyle ':completion:*' use-compctl false					# Never use old style completions
-zstyle ':completion:*' group-name ''						# Separate completion types in the menu
-zstyle ':completion:*:descriptions' format "%F{green}%d%f"	# Show the completion type in menu
-#zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
-#    'local-directories named-directories'					# Don't complete from cdpath
-##zstyle ':completion:*' verbose true
-#zstyle ':completion:*' list-colors ''
-#zstyle ':completion:*:default' list-colors '=(#b)*(XX *)=32=31' '=*=32'
-##zstyle ':completion:*' use-cache on
-##zstyle ':completion:*' cache-path ~/.zsh/cache
-#zstyle ':completion:*' squeeze-slashes true
-#zstyle ':completion:*' file-sort modification
-
-# Load completion
-autoload -Uz compinit && compinit
-
-# compinstall
-#zstyle ':completion:*' completions 1
-#zstyle ':completion:*' expand prefix suffix
-#zstyle ':completion:*' glob 1
-#zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-#zstyle ':completion:*' list-suffixes true
-#zstyle ':completion:*' prompt '%e found.'
-#zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-#zstyle :compinstall filename '/Users/tuf83079/.zshrc'
-# End compinstall
-
-# Custom function to handle command history.
-# This defangs "dangerous" commands by recording
-# them in history prefixed with a comment (#).
-#function zshaddhistory() {
-#	if [[ $1 =~ "^ " ]]; then
-		# This will respect HIST_IGNORE_SPACE.
-#		return 0
-
-#	elif [[ $1 =~ "cp\ *|mv\ *|rm\ *|cat\ *\>|pv\ *|dd\ *" ]]; then
-#		1="# $1"
-#	fi
-	
-	# Write to usual history location
-#	print -sr -- ${1%%$'\n'}
-	
-	# Instruct the shell itself not to save the history (we just did).
-#	return 1
-#}
-
-# Homebrew's zsh-autosuggestions
+# Load homebrew's zsh-autosuggestions
 if [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 	#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-	ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-	ZSH_AUTOSUGGEST_USE_ASYNC=true
+	#ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+	#ZSH_AUTOSUGGEST_USE_ASYNC=true
 else
-	echo ""
-	echo "Missing zsh-autosuggestions!"
-	echo ""
+	echo "WARNING: Missing zsh-autosuggestions!"
 fi
 
-# Homebrew's zsh-git-prompt
+# Load homebrew's zsh-git-prompt
 if [[ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ]]; then
-	source /usr/local/opt/zsh-git-prompt/zshrc.sh
+	# This is slow! Use vcs_info instead
+	#source /usr/local/opt/zsh-git-prompt/zshrc.sh
 	#GIT_PROMPT_EXECUTABLE="haskell"				# Install instructions broken as of 2017-11-24l
-	ZSH_THEME_GIT_PROMPT_PREFIX="%F{251}[%f"
-	ZSH_THEME_GIT_PROMPT_SUFFIX="%F{251}]%f"
-	#ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-	#ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
-	#ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
-	#ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
-	#ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{✚%G%}"
-	#ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-	#ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
-	#ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
-	#ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
+	#ZSH_THEME_GIT_PROMPT_PREFIX="%F{251}[%f"
+	#ZSH_THEME_GIT_PROMPT_SUFFIX="%F{251}]%f"
 else
-	echo ""
-	echo "Missing zsh-git-prompt!"
-	echo ""
+	echo "WARNING: Missing zsh-git-prompt!"
 fi
 
-# Homebrew's zsh-syntax-highlighting
-# Must be at the end of zshrc
+# Load homebrew's zsh-syntax-highlighting (Must be last)
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 else
-	echo ""
-	echo "Missing zsh-syntax-highlighting!"
-	echo ""
+	echo "WARNING: Missing zsh-syntax-highlighting!"
 fi
 
 # EOF

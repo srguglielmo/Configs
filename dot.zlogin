@@ -10,7 +10,7 @@ uptime
 #who -q
 w -hi | grep -v $USER
 
-# This is fortune from Homebrew
+# Homebrew's fortune
 if [[ -x /usr/local/bin/fortune ]]; then
 	/usr/local/bin/fortune -as
 fi
