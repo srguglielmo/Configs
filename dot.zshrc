@@ -1,25 +1,43 @@
 # srg's ~/.zshrc
-# This is run for interactive shells
+# Run for interactive shells
+
+############
+# ENV VARS #
+############
+# Must be first because commands below use env vars
+
+export EDITOR=vim
+export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
+export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
+export LESSHISTFILE=/dev/null
+export LESSSECURE=1
+export PAGER=less
+export VISUAL=vim
 
 ###########
 # ALIASES #
 ###########
 
-# Homebrew's thefuck
-if [[ -f /usr/local/bin/thefuck ]]; then
-	eval $(/usr/local/bin/thefuck --alias)
+# MacOS
+if [[ "$(uname)" == "Darwin" ]]; then
+	alias b='brew'
+	alias l='ls -aFGhl'
+	alias lp='ls -aeFGhlO'
+
+	# Homebrew's thefuck
+	if [[ -f /usr/local/bin/thefuck ]]; then
+		eval $(/usr/local/bin/thefuck --alias)
+	fi
 fi
 
-# Normal
+# All-OS
 alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias gp='git pull'
 alias gs='git status'
-alias l='ls -aFGhl'
 alias le='less'
 alias lintphp='find . -type f -name "*.php" -exec php -l {} \; | less'
-alias lp='ls -aeFGhlO'
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias vi='vim'
@@ -34,7 +52,6 @@ alias -s css=$EDITOR
 alias -s html=$EDITOR
 alias -s js=$EDITOR
 alias -s log=$PAGER
-alias -s md=$PAGER
 alias -s php=$EDITOR
 alias -s txt=$EDITOR
 
@@ -46,55 +63,74 @@ unalias which-command 2>/dev/null
 # FUNCTIONS #
 #############
 
+# Search path for function definitions
+$fpath=()
+if [[ "$(uname)" == "Darwin" ]]; then
+	# Completions provided by additional homebrew packages
+	$fpath=($fpath /usr/local/share/zsh/site-functions)
+
+	# Homebrew's zsh-completions
+	$fpath=($fpath /usr/local/share/zsh-completions)
+
+	# Homebrew's zsh
+	$fpath=($fpath /usr/local/opt/zsh/share/zsh/functions)
+fi
+
 # Functions to autoload from $fpath
 autoload -Uz compinit							# The new completion system
 autoload -Uz down-line-or-beginning-search		# Contrib; Match history down based on prefix
-autoload -Uz up-line-or-beginning-search		# Contrib; Mtch history up based on prefix
+autoload -Uz up-line-or-beginning-search		# Contrib; Match history up based on prefix
 autoload -Uz vcs_info							# Contrib; version control info
 
+# Custom handling of unknown commands
 function command_not_found_handler {
 	printf "\t\t¯\_(ツ)_/¯\n"
 	exit 127
 }
 
-# Set the right prompt based on the current zle vi mode and the
-# git status/branch. This is called from my-zle-line-init()
+# New function that sets the right prompt based on the current zle vi mode
+# and the git status/branch. This is called from my-zle-line-init()
 # and my-zle-keymap-select().
 function indicate-my-zle-mode {
 	RPS1='${vcs_info_msg_0_} '			# zsh's vcs_info
 	#RPS1='$(git_super_status) '		# GitHub's zsh-git-prompt (slow!)
 
+	RPS1+='%F{251}['
+
 	# Print the vi mode that zle is in
 	if [[ $KEYMAP == "main" ]]; then
 		# "main" is insert mode
-		RPS1+='%F{251}[%F{040}INS%F{251}]%f'
+		RPS1+='%F{040}INS'
 	elif [[ $KEYMAP == "vicmd" ]]; then
-		RPS1+='%F{251}[%K{088}%F{227}%BCMD%b%k%F{251}]%f'
+		RPS1+='%K{088}%F{227}%BCMD%b%k'
 	elif [[ $KEYMAP == "viopp" ]]; then
-		RPS1+='%F{251}[%K{088}%F{227}%BOPP%b%k%F{251}]%f'
+		RPS1+='%K{088}%F{227}%BOPP%b%k'
 	elif [[ $KEYMAP == "visual" ]]; then
-		RPS1+='%F{251}[%K{088}%F{227}%BVIS%b%k%F{251}]%f'
+		RPS1+='%K{088}%F{227}%BVIS%b%k'
 	else
-		RPS1+="%F{251}[%K{088}%F{227}%BERR/$KEYMAP%b%k%F{251}]%f"
+		RPS1+="%K{088}%F{227}%BERR/$KEYMAP%b%k"
 	fi
+
+	RPS1+='%F{251}]%f'
 
 	# Redraw the prompts
 	zle reset-prompt
 }
 
-# Sets the zle mode and preserve exit status of previous command
+# New function that sets the zle mode and preserves the exit status of
+# the previous command.
 function my-zle-keymap-select {
 	# Set RPS1
 	indicate-my-zle-mode
 
-	# Anonymous function, executed immediately, returns the last
+	# Anonymous function, executed immediately; returns the last
 	# program's exit code for use in in $PS1
 	function {
 		return $__prompt_status
 	}
 }
 
-# Since we use $? in PS1 below, we need to preserve the exit status
+# Since we use $? in PS1, we need to preserve the exit status
 # of the last executed command in to a temp variable
 function my-zle-line-init {
 	# Set RPS1
@@ -135,13 +171,20 @@ bindkey -v										# Vi style in zle
 #bindkey '^i' complete-word						# Required for _expand
 #bindkey '^ ' autosuggest-accept				# ctrl+space to accept the autosuggestion
 
-# Bind arrow up/down to the contrib functions to match history based on the current line prefix
+# Bind arrow up/down to the contrib functions to match history based
+# on the current line prefix (autoloaded above).
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
 ###########
 # MODULES #
 ###########
+
+# Search path for zmodload
+module_path=()
+if [[ "$(uname)" == "Darwin" ]]; then
+	module_path=(/usr/local/opt/zsh/lib)
+fi
 
 # Provides extensions to completion listings:
 # Ability to highlight matches, ability to scoll, and different styles
@@ -307,25 +350,11 @@ cdpath=(. ~/Code)									# PATH, but for cd
 #CORRECT_IGNORE_FILE=								# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
 DIRSTACKSIZE=10										# Directory history size
 #fignore=()											# File suffixes to ignore during completion
-
-$fpath=()											# Search path for function definitions
-if [[ "$(uname)" == "Darwin" ]]; then
-	# Completions provided by additional homebrew packages
-	$fpath=($fpath /usr/local/share/zsh/site-functions)
-
-	# Homebrew's zsh-completions
-	$fpath=($fpath /usr/local/share/zsh-completions)
-	
-	# Homebrew's zsh
-	$fpath=($fpath /usr/local/opt/zsh/share/zsh/functions)
-fi
-
 HISTFILE=~/.zhistory
 #HISTORY_IGNORE										# Ignore pattern for history entries
 HISTSIZE=10000
 #KEYTIMEOUT=										# In hundredths of a second
 LANG=en_US.UTF-8
-module_path=(/usr/local/opt/zsh/lib)				# Search path for zmodload
 path=(/usr/local/bin /usr/bin /bin /usr/sbin /sbin)
 
 # The main prompt
@@ -348,16 +377,7 @@ SAVEHIST=10000
 #SPROMPT=											# Prompt used for spell correction
 TIMEFMT='[%*E] [%U CPUusr] [%S CPUsys] [%MMiB Max]'	# Formatting for REPORTMEMORY and REPORTTIME
 TMPPREFIX=/tmp/zsh
-watch=(all)
-
-# Environment vars
-export EDITOR=vim
-export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
-export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
-export LESSHISTFILE=/dev/null
-export LESSSECURE=1
-export PAGER=less
-export VISUAL=vim
+watch=(notme)
 
 #######
 # ZLE #
@@ -396,16 +416,40 @@ fi
 if [[ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ]]; then
 	# This is slow! Use vcs_info instead
 	#source /usr/local/opt/zsh-git-prompt/zshrc.sh
-	#GIT_PROMPT_EXECUTABLE="haskell"				# Install instructions broken as of 2017-11-24l
+	#GIT_PROMPT_EXECUTABLE="haskell"				# Install instructions broken as of 2017-11-24
 	#ZSH_THEME_GIT_PROMPT_PREFIX="%F{251}[%f"
 	#ZSH_THEME_GIT_PROMPT_SUFFIX="%F{251}]%f"
 else
 	echo "WARNING: Missing zsh-git-prompt!"
 fi
 
-# Load homebrew's zsh-syntax-highlighting (Must be last)
+# Load homebrew's zsh-syntax-highlighting (must be last)
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+	# Array of highlighters to enable
+	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
+	typeset -A ZSH_HIGHLIGHT_STYLES
+
+	# Comments default to black, which are invisible on a black terminal
+	ZSH_HIGHLIGHT_STYLES[comment]='fg=cyan'
+
+	# Bracket styles
+	ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=white,bold,bg=red'
+	ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=blue,bold'
+	ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=red,bold'
+	ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
+	ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
+	ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='bg=blue'
+
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -r' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -f' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -rf' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -fr' 'fg=white,bold,bg=red')
+
+	ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
+
+	ZSH_HIGHLIGHT_STYLES[root]='bg=red'
 else
 	echo "WARNING: Missing zsh-syntax-highlighting!"
 fi
