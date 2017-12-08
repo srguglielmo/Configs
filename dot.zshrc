@@ -4,7 +4,7 @@
 ############
 # ENV VARS #
 ############
-# Must be first because commands below use env vars
+# Must be first because commands below use EDITOR and PAGER
 
 export EDITOR=vim
 export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
@@ -246,7 +246,7 @@ setopt NUMERIC_GLOB_SORT			# Sort numeric filenames numerically
 setopt REMATCH_PCRE					# =~ uses zsh/pcre (else uses the sytem ereg libraries)
 #unsetopt UNSET						# zsh-syntax-highlighting complains with this unset
 setopt WARN_CREATE_GLOBAL			# zsh-git-prompt complains with this set
-#setopt WARN_NESTED_VAR				# vcs_info and zsh-syntax-highlighting complains with this set
+#setopt WARN_NESTED_VAR				# vcs_info complains with this set
 
 # History
 setopt HIST_FCNTL_LOCK				# Lock the history file when writing
@@ -336,8 +336,8 @@ zstyle ':vcs_info:*' branchformat '%b'				# %b
 zstyle ':vcs_info:*' check-for-changes true			# Enable use of %c and %u
 zstyle ':vcs_info:*' enable git						# Only use git (not svn, etc)
 zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
-zstyle ':vcs_info:*' stagedstr '%F{057}S '			# %c
-zstyle ':vcs_info:*' unstagedstr '%F{172}U '		# %u
+zstyle ':vcs_info:*' stagedstr '%F{057}Stg '			# %c
+zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '		# %u
 
 #############
 # VARIABLES #
