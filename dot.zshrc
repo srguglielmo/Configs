@@ -345,7 +345,7 @@ zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '		# %u
 # Lowercase variables are arrays
 
 # ZSH vars
-cdpath=(. ~/Code)									# PATH, but for cd
+cdpath=(. ~/Code ~/Code/GitHub)						# PATH, but for cd
 #CORRECT_IGNORE=									# Ignore pattern for spell correction
 #CORRECT_IGNORE_FILE=								# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
 DIRSTACKSIZE=10										# Directory history size
