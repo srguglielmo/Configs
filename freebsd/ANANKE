@@ -1,6 +1,6 @@
 #
 # ANANKE -- kernel configuration file for FreeBSD/amd64
-# Last updated for FreeBSD 6?
+# Last used on FreeBSD 6 or 7
 #
 
 ident		ANANKE
@@ -8,7 +8,6 @@ cpu			HAMMER				# For Intel EM64 Xeons
 options 	SCHED_ULE			# ULE scheduler
 options 	PREEMPTION			# Kernel thread preemption
 options		IPI_PREEMPTION
-
 
 ##############
 ## Hardware ##
