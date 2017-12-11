@@ -143,6 +143,7 @@ function my-zle-line-init {
 # Wrapper to commit to https://github.com/srguglielmo/NetHackHistory
 function nethack {
 	if [[ "$(uname)" == "Darwin" ]]; then
+		git -C /usr/local/Cellar/nethack/3.6.0/libexec pull
 		/usr/local/bin/nethack
 		git -C /usr/local/Cellar/nethack/3.6.0/libexec commit --all --message='Autocommit'
 		git -C /usr/local/Cellar/nethack/3.6.0/libexec push github master
