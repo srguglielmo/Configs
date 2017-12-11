@@ -140,6 +140,18 @@ function my-zle-line-init {
 	typeset -g __prompt_status="$?"
 }
 
+# Wrapper to commit to https://github.com/srguglielmo/NetHackHistory
+function nethack {
+	if [[ "$(uname)" == "Darwin" ]]; then
+		/usr/local/bin/nethack
+		git -C /usr/local/Cellar/nethack/3.6.0/libexec commit --all --message='Autocommit'
+		git -C /usr/local/Cellar/nethack/3.6.0/libexec push github master
+	else
+		echo "ERROR: Unknown OS"
+		exit 1
+	fi
+}
+
 # Gather the git info just before each prompt
 function precmd {
 	vcs_info
