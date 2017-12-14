@@ -1,6 +1,7 @@
 [user]
 	name = Stephen Guglielmo
 	email = srg@
+	signingkey =
 [push]
 	default = nothing
 [core]
@@ -15,13 +16,15 @@
 	branch = true
 [column]
 	ui = auto,row
-	#branch = auto
-	#clean = auto
-	#status = auto
-	#tag = auto
 [fetch]
 	fsckObjects = true
 [receive]
 	fsckObjects = true
 [transfer]
 	fsckObjects = true
+[commit]
+	gpgSign = true
+[log]
+	showSignature = true
+[rebase]
+	missingCommitsCheck = warn
