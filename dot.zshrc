@@ -7,6 +7,7 @@
 # Must be first because commands below use EDITOR and PAGER
 
 export EDITOR=vim
+export GPG_TTY=$(tty)
 export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
