@@ -20,6 +20,7 @@ OPTIONS=!autoopen
 OPTIONS=!autopickup
 #OPTIONS=dark_room
 OPTIONS=disclose:+i +a +v +g +c +o
+# Futurama
 OPTIONS=fruit:Pelvic Splanchnic Ganglion
 OPTIONS=hilite_pet
 OPTIONS=hilite_pile
@@ -29,11 +30,11 @@ OPTIONS=!mail
 OPTIONS=menustyle:full
 OPTIONS=menu_headings:underline
 #OPTIONS=menu_headings:bold
-OPTIONS=msghistory:200
+OPTIONS=msghistory:50
 OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=paranoid_confirmation:Confirm quit die bones attack pray wand Remove
-OPTIONS=perm_invent
+#OPTIONS=perm_invent
 OPTIONS=pickup_burden:Burdened
 OPTIONS=pile_limit:20
 #OPTIONS=playmode:explore
@@ -56,16 +57,16 @@ OPTIONS=time
 ##################
 # Window Options #
 ##################
-OPTIONS=align_message:bottom
-OPTIONS=align_status:right
+#OPTIONS=align_message:bottom
+#OPTIONS=align_status:right
 #OPTIONS=large_font
 OPTIONS=!mouse_support
-OPTIONS=popup_dialog
-OPTIONS=scroll_amount:10,scroll_margin:5
-OPTIONS=selectsaved
-OPTIONS=use_inverse
-OPTIONS=windowcolors:menu white/black message green/yellow status white/blue text white/black
-OPTIONS=wraptext
+#OPTIONS=popup_dialog
+#OPTIONS=scroll_amount:10,scroll_margin:5
+#OPTIONS=selectsaved
+#OPTIONS=use_inverse
+#OPTIONS=windowcolors:menu white/black message green/yellow status white/blue text white/black
+#OPTIONS=wraptext
 
 ##########
 # Colors #
@@ -111,9 +112,6 @@ SYMBOLS=S_boulder:8
 ############
 # MSGTYPEs #
 ############
-
-# Hide Displacing pets
-#MSGTYPE=hide "You displaced *"
 
 # Don't repeat for items on floor
 #MSGTYPE=norep "You see here a *"
