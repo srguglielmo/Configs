@@ -33,3 +33,7 @@ set smartindent					" Auto-indent
 set smarttab					" Auto-tab
 set softtabstop=4				" Number of spaces per tab; Same as tabstop
 set tabstop=4					" Width of an actual tab character
+
+" Always start at the beginning of the file for commit messages
+"autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+autocmd filetype crontab setlocal nobackup nowritebackup
