@@ -1,7 +1,7 @@
 [user]
 	name = Stephen Guglielmo
 	email = srg@
-	signingkey =
+	signingkey = 
 [push]
 	default = nothing
 [core]
@@ -30,3 +30,7 @@
 	missingCommitsCheck = warn
 	stat = true
 	instructionFormat = %h %G? (%an <%ae>) %s
+[advice]
+	pushUpdateRejected = false
+	statusHints = false
+	statusUoption = false
