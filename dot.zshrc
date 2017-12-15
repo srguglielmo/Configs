@@ -317,6 +317,7 @@ zstyle ':completion:*' list-colors ''						# Color listings (req group-name='')
 zstyle ':completion:*' menu select=2						# Use arrow keys with menu, min results
 zstyle ':completion:*' use-compctl false					# Never use old style completions
 
+zstyle ':completion:*' verbose true
 zstyle ':completion:*:descriptions' format "%F{green}%d%f"	# Show the completion type in menu
 
 #zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
@@ -326,7 +327,6 @@ zstyle ':completion:*:descriptions' format "%F{green}%d%f"	# Show the completion
 #zstyle ':completion:*:cd:*' ignore-parents parent pwd		# Completion won't match parent (cd ../<TAB>)
 #zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 #    'local-directories named-directories'					# Don't complete from cdpath
-##zstyle ':completion:*' verbose true
 #zstyle ':completion:*:default' list-colors '=(#b)*(XX *)=32=31' '=*=32'
 ##zstyle ':completion:*' use-cache on
 ##zstyle ':completion:*' cache-path ~/.zsh/cache
@@ -350,8 +350,8 @@ zstyle ':vcs_info:*' branchformat '%b'				# %b
 zstyle ':vcs_info:*' check-for-changes true			# Enable use of %c and %u
 zstyle ':vcs_info:*' enable git						# Only use git (not svn, etc)
 zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
-zstyle ':vcs_info:*' stagedstr '%F{057}Stg '			# %c
-zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '		# %u
+zstyle ':vcs_info:*' stagedstr '%F{057}Stg '		# %c
+zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '	# %u
 
 #############
 # VARIABLES #
