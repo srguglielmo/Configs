@@ -94,7 +94,6 @@ function command_not_found_handler {
 # and my-zle-keymap-select().
 function indicate-my-zle-mode {
 	RPS1='${vcs_info_msg_0_} '			# zsh's vcs_info
-	#RPS1='$(git_super_status) '		# GitHub's zsh-git-prompt (slow!)
 
 	RPS1+='%F{251}['
 
@@ -259,7 +258,7 @@ setopt NUMERIC_GLOB_SORT			# Sort numeric filenames numerically
 #setopt RC_EXPAND_PARAM				# Expand arrays
 setopt REMATCH_PCRE					# =~ uses zsh/pcre (else uses the sytem ereg libraries)
 #unsetopt UNSET						# zsh-syntax-highlighting complains with this unset
-setopt WARN_CREATE_GLOBAL			# zsh-git-prompt complains with this set
+setopt WARN_CREATE_GLOBAL
 #setopt WARN_NESTED_VAR				# vcs_info complains with this set
 
 # History
@@ -424,17 +423,6 @@ if [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 	#ZSH_AUTOSUGGEST_USE_ASYNC=true
 else
 	echo "WARNING: Missing zsh-autosuggestions!"
-fi
-
-# Load homebrew's zsh-git-prompt
-if [[ -f /usr/local/opt/zsh-git-prompt/zshrc.sh ]]; then
-	# This is slow! Use vcs_info instead
-	#source /usr/local/opt/zsh-git-prompt/zshrc.sh
-	#GIT_PROMPT_EXECUTABLE="haskell"				# Install instructions broken as of 2017-11-24
-	#ZSH_THEME_GIT_PROMPT_PREFIX="%F{251}[%f"
-	#ZSH_THEME_GIT_PROMPT_SUFFIX="%F{251}]%f"
-else
-	echo "WARNING: Missing zsh-git-prompt!"
 fi
 
 # Load homebrew's zsh-syntax-highlighting (must be last)
