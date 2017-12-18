@@ -18,11 +18,11 @@ OPTIONS=role:valkyrie
 ###################
 OPTIONS=!autoopen
 OPTIONS=!autopickup
-#OPTIONS=dark_room
+OPTIONS=dark_room
 OPTIONS=disclose:+i +a +v +g +c +o
+OPTIONS=extmenu
 # Futurama
 OPTIONS=fruit:Pelvic Splanchnic Ganglion
-OPTIONS=hilite_pet
 OPTIONS=hilite_pile
 OPTIONS=!implicit_uncursed
 OPTIONS=lit_corridor
@@ -30,14 +30,12 @@ OPTIONS=!mail
 OPTIONS=menustyle:full
 OPTIONS=menu_headings:underline
 #OPTIONS=menu_headings:bold
-OPTIONS=msghistory:50
+OPTIONS=msghistory:15
 OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=paranoid_confirmation:Confirm quit die bones attack pray wand Remove
-#OPTIONS=perm_invent
 OPTIONS=pickup_burden:Burdened
-OPTIONS=pile_limit:20
-#OPTIONS=playmode:explore
+OPTIONS=pile_limit:10
 OPTIONS=roguesymset:RogueEpyx
 OPTIONS=runmode:walk
 OPTIONS=scores:10t 4a o
@@ -49,51 +47,19 @@ OPTIONS=sortloot:full
 OPTIONS=standout
 # MacOS: Use IBMgraphics, but setup a Terminal.app profile to use Latin-US (DOS)
 OPTIONS=symset:IBMgraphics
-#OPTIONS=symset:MACgraphics
-#OPTIONS=symset:DECgraphics
 OPTIONS=time
-#OPTIONS=windowtype:curses
 
 ##################
 # Window Options #
 ##################
-#OPTIONS=align_message:bottom
-#OPTIONS=align_status:right
-#OPTIONS=large_font
 OPTIONS=!mouse_support
-#OPTIONS=popup_dialog
-#OPTIONS=scroll_amount:10,scroll_margin:5
-#OPTIONS=selectsaved
-#OPTIONS=use_inverse
-#OPTIONS=windowcolors:menu white/black message green/yellow status white/blue text white/black
-#OPTIONS=wraptext
 
 ##########
 # Colors #
 ##########
 
 OPTIONS=color
-#OPTIONS=statuscolors
-#OPTIONS=guicolor
 OPTIONS=menucolors
-
-# HP
-#STATUSCOLOR=hp%100=green,hp%66=yellow,hp%50=orange
-#STATUSCOLOR=hp%33=red&bold,hp%15:red&inverse,hp%0:red&inverse&blink
-# Pw
-#STATUSCOLOR=pw%100=green,pw%66=yellow,pw%50:orange,pw%33=red&bold
-# Carry
-#STATUSCOLOR=burdened:yellow,stressed:orange,strained:red&bold
-#STATUSCOLOR=overtaxed:red&inverse,overloaded:red&inverse&blink
-# Hunger
-#STATUSCOLOR=satiated:yellow,hungry:orange,weak:red&bold
-#STATUSCOLOR=fainting:red&inverse,fainted:red&inverse&blink
-# Mental
-#STATUSCOLOR=hallu:yellow,conf:orange,stun:red&bold
-# Health
-#STATUSCOLOR=ill:red&inverse,foodpois:red&inverse,slime:red&inverse
-# Other
-#STATUSCOLOR=held:red&inverse,blind:red&inverse
 
 MENUCOLOR="blessed"=cyan&bold
 MENUCOLOR="cursed"=orange&bold
@@ -112,10 +78,6 @@ SYMBOLS=S_boulder:8
 ############
 # MSGTYPEs #
 ############
-
-# Don't repeat for items on floor
-#MSGTYPE=norep "You see here a *"
-#MSGTYPE=norep "You see here an *"
 
 # Always prompt for delayed instadeaths...
 MSGTYPE=stop "The couatl swings itself around you!"
