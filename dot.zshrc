@@ -202,7 +202,7 @@ function nethack {
 		nethack
 	fi
 
-	git -C $nh_libexec_path commit --all --message='Autocommit' || { echo "Git commit failed!"; return 1; }
+	git -C $nh_libexec_path commit --all --message='Autocommit'
 	
 	# Don't push to GitHub automatically in case the commit message is --append'ed,
 	# but cd into $nh_libexec_path so it can be pushed manually if desired.
