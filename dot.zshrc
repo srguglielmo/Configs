@@ -168,8 +168,9 @@ function nethack {
 			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.asciicast
 
 			# After the session ends, prompt the user to see if $nh_curgame should
-			# be incremented
+			# be incremented.
 			echo "Did your NetHack game just end (death, quit, etc)? If so, I will increment the game counter for asciinema."
+			typeset newgame REPLY
 			select newgame in Yes No; do
 				case "$newgame" in
 					"Yes")
