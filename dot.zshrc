@@ -143,14 +143,69 @@ function my-zle-line-init {
 # Wrapper to commit to https://github.com/srguglielmo/NetHackHistory
 function nethack {
 	if [[ "$(uname)" == "Darwin" ]]; then
-		git -C /usr/local/Cellar/nethack/3.6.0/libexec pull --quiet
-		/usr/local/bin/nethack
-		git -C /usr/local/Cellar/nethack/3.6.0/libexec commit --all --message='Autocommit'
-		git -C /usr/local/Cellar/nethack/3.6.0/libexec push github master
+		typeset nh_libexec_path="/usr/local/Cellar/nethack/3.6.0/libexec"
+		typeset nh_curgame="$nh_libexec_path/currentgame"
+		typeset asciinema="/usr/local/bin/asciinema"
 	else
 		echo "ERROR: Unknown OS"
-		exit 1
+		return 1
 	fi
+	
+	git -C $nh_libexec_path pull --quiet || { echo "Git Pull failed!"; return 1; }
+		
+	if [[ -x $asciinema ]]; then
+		# In order to save a full game to a single asciinema file, even if played over
+		# several sessions, a manual game counter is read/written to $nh_curgame.
+		# The asciicast will be appended to this file until it is incremented (when the game ends).
+		# This is hacky. Improvements are welcome.
+
+		if [[ -f $nh_curgame && -r $nh_curgame && -w $nh_curgame ]]; then
+			typeset currentgame=$(< $nh_curgame)
+
+			# NOTE: asciinema 1.x does not currently support appending the file!
+			# Version 2.x, once released, will support --append.
+			# Run it anyway for testing (see .gitignore).
+			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.asciicast
+
+			# After the session ends, prompt the user to see if $nh_curgame should
+			# be incremented
+			echo "Did your NetHack game just end (death, quit, etc)? If so, I will increment the game counter for asciinema."
+			select newgame in Yes No; do
+				case "$newgame" in
+					"Yes")
+						echo "Incrementing $nh_curgame"
+						$currentgame=$currentgame+1
+						echo "$currentgame" >! $nh_curgame
+						break
+						;;
+					"No")
+						echo "Not incrementing $nh_curgame"
+						break
+						;;
+					*)
+						echo "Something went wrong..."
+						return 1
+				esac
+			done
+		else
+			echo "ERROR: Missing/unreadable/unwritable $nh_curgame"
+			return 1
+		fi
+	else
+		echo "Warning: asciinema not found. Game will not be recorded. Press ctrl+c to quit now."
+		for ((typeset i=0; i<7; i++)); do
+			sleep 1
+			echo -n "."
+		done
+
+		nethack
+	fi
+
+	git -C $nh_libexec_path commit --all --message='Autocommit' || { echo "Git commit failed!"; return 1; }
+	
+	# Don't push to GitHub automatically in case the commit message is --append'ed,
+	# but cd into $nh_libexec_path so it can be pushed manually if desired.
+	cd $nh_libexec_path
 }
 
 # Gather the git info just before each prompt
