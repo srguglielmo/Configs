@@ -160,7 +160,7 @@ function nethack {
 		# This is hacky. Improvements are welcome.
 
 		if [[ -f $nh_curgame && -r $nh_curgame && -w $nh_curgame ]]; then
-			typeset currentgame=$(< $nh_curgame)
+			typeset currentgame=$(<$nh_curgame)
 
 			# NOTE: asciinema 1.x does not currently support appending the file!
 			# Version 2.x, once released, will support --append.
