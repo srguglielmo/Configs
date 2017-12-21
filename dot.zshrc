@@ -165,7 +165,7 @@ function nethack {
 			# NOTE: asciinema 1.x does not currently support appending the file!
 			# Version 2.x, once released, will support --append.
 			# Run it anyway for testing (see .gitignore).
-			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.asciicast
+			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.cast
 
 			# After the session ends, prompt the user to see if $nh_curgame should
 			# be incremented.
