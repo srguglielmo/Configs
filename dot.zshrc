@@ -175,7 +175,7 @@ function nethack {
 				case "$newgame" in
 					"Yes")
 						echo "Incrementing $nh_curgame"
-						$currentgame=$currentgame+1
+						currentgame=$((currentgame + 1))
 						echo "$currentgame" >! $nh_curgame
 						break
 						;;
