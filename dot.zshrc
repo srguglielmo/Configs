@@ -35,12 +35,14 @@ fi
 alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
+alias g='git'
 alias gp='git pull'
 alias gs='git status'
 alias le='less'
-alias lintphp='find . -type f -name "*.php" -exec php -l {} \; | less'
+alias lphp='find . -type f -name "*.php" -exec php -l {} \; | less'
 alias mv='mv -iv'
 alias rm='rm -iv'
+# Aliases stack:
 alias vi='vim'
 alias vim='vim -p'
 
