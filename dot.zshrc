@@ -69,14 +69,14 @@ unalias which-command 2>/dev/null
 # Search path for function definitions
 $fpath=()
 if [[ "$(uname)" == "Darwin" ]]; then
-	# Completions provided by additional homebrew packages
-	$fpath=($fpath /usr/local/share/zsh/site-functions)
+	# Homebrew's zsh
+	$fpath=(/usr/local/opt/zsh/share/zsh/functions)
 
 	# Homebrew's zsh-completions
-	$fpath=($fpath /usr/local/share/zsh-completions)
+	$fpath=(/usr/local/share/zsh-completions $fpath)
 
-	# Homebrew's zsh
-	$fpath=($fpath /usr/local/opt/zsh/share/zsh/functions)
+	# Completions provided by additional homebrew packages
+	$fpath=(/usr/local/share/zsh/site-functions $fpath)
 fi
 
 # Functions to autoload from $fpath
