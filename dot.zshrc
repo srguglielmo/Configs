@@ -19,7 +19,7 @@ export VISUAL=vim
 # ALIASES #
 ###########
 
-# MacOS
+# MacOS aliases
 if [[ "$(uname)" == "Darwin" ]]; then
 	alias b='brew'
 	alias l='ls -aFGhl'
@@ -31,7 +31,7 @@ if [[ -f /usr/local/bin/thefuck ]]; then
 	eval $(/usr/local/bin/thefuck --alias)
 fi
 
-# All-OS
+# All-OS aliases
 alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
@@ -46,11 +46,16 @@ alias rm='rm -iv'
 alias vi='vim'
 alias vim='vim -p'
 
-# Global
+# wp-cli
+if [[ -x /usr/local/bin/wp ]]; then
+	alias wp='wp --skip-plugins --skip-themes'
+fi
+
+# Global aliases
 alias -g G='|grep'
 alias -g L='|less'
 
-# Suffix ("text.NAME" -> "VALUE text.NAME")
+# Suffix aliases ("text.NAME" -> "VALUE text.NAME")
 alias -s css=$EDITOR
 alias -s html=$EDITOR
 alias -s js=$EDITOR
@@ -91,7 +96,7 @@ function command_not_found_handler {
 	exit 127
 }
 
-# New function that sets the right prompt based on the current zle vi mode
+# Function that sets the right prompt based on the current zle vi mode
 # and the git status/branch. This is called from my-zle-line-init()
 # and my-zle-keymap-select().
 function indicate-my-zle-mode {
@@ -119,7 +124,7 @@ function indicate-my-zle-mode {
 	zle reset-prompt
 }
 
-# New function that sets the zle mode and preserves the exit status of
+# Function that sets the zle mode and preserves the exit status of
 # the previous command.
 function my-zle-keymap-select {
 	# Set RPS1
@@ -132,8 +137,8 @@ function my-zle-keymap-select {
 	}
 }
 
-# Since we use $? in PS1, we need to preserve the exit status
-# of the last executed command in to a temp variable
+# Since $? is used in PS1, the exit status of the last executed
+# command is preserved in to a temp variable
 function my-zle-line-init {
 	# Set RPS1
 	indicate-my-zle-mode
@@ -230,7 +235,7 @@ function precmd {
 	# Write to usual history location
 #	print -sr -- ${1%%$'\n'}
 	
-	# Instruct the shell itself not to save the history (we just did).
+	# Instruct the shell itself not to save the history (again).
 #	return 1
 #}
 
@@ -299,7 +304,7 @@ setopt PUSHD_IGNORE_DUPS			# Ignore dupes in the directory stack
 #setopt PUSHD_MINUS					# Swap the meaning of + and -
 
 # Completion
-setopt ALWAYS_TO_END				# Move cursor to end, even if we completed in a word
+setopt ALWAYS_TO_END				# Move cursor to end, even when completing in a word
 setopt BASH_AUTO_LIST				# Show completion menu on 2nd tab
 setopt COMPLETE_ALIASES
 setopt COMPLETE_IN_WORD				# Must be set for the _prefix completer
