@@ -1,36 +1,36 @@
-[user]
-	name = Stephen Guglielmo
-	email = srg@
-	signingkey = 
-[push]
-	default = nothing
-[core]
-	editor = vim
-	autocrlf = input
-	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
-	safecrlf = true
-	compression = 6
-[merge]
-	tool = vimdiff
-[status]
-	branch = true
-[column]
-	ui = auto,row
-[fetch]
-	fsckObjects = true
-[receive]
-	fsckObjects = true
-[transfer]
-	fsckObjects = true
-[commit]
-	gpgSign = true
-[log]
-	showSignature = true
-[rebase]
-	missingCommitsCheck = warn
-	stat = true
-	instructionFormat = %h %G? (%an <%ae>) %s
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
 	statusUoption = false
+[column]
+	ui = auto,row
+[commit]
+	gpgSign = true
+[core]
+	autocrlf = input
+	compression = 6
+	editor = vim
+	safecrlf = true
+	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
+[merge]
+	tool = vimdiff
+[fetch]
+	fsckObjects = true
+[log]
+	showSignature = true
+[rebase]
+	instructionFormat = %h %G? (%an <%ae>) %s
+	missingCommitsCheck = warn
+	stat = true
+[receive]
+	fsckObjects = true
+[transfer]
+	fsckObjects = true
+[push]
+	default = nothing
+[status]
+	branch = true
+[user]
+	email = srg@
+	name = Stephen Guglielmo
+	signingkey =
