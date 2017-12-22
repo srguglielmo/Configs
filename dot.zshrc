@@ -24,11 +24,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
 	alias b='brew'
 	alias l='ls -aFGhl'
 	alias lp='ls -aeFGhlO'
+fi
 
-	# Homebrew's thefuck
-	if [[ -f /usr/local/bin/thefuck ]]; then
-		eval $(/usr/local/bin/thefuck --alias)
-	fi
+# Homebrew's thefuck
+if [[ -f /usr/local/bin/thefuck ]]; then
+	eval $(/usr/local/bin/thefuck --alias)
 fi
 
 # All-OS
