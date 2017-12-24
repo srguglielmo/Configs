@@ -157,7 +157,7 @@ function nethack {
 		return 1
 	fi
 	
-	git -C $nh_libexec_path pull --quiet || { echo "Git Pull failed!"; return 1; }
+	git -C $nh_libexec_path pull --quiet
 		
 	if [[ -x $asciinema ]]; then
 		# In order to save a full game to a single asciinema file, even if played over
