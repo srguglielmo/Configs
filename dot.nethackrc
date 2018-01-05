@@ -5,85 +5,86 @@
 #############
 # Character #
 #############
+# Lawful dwarven valkyries are the strongest role, so start with that
 OPTIONS=align:lawful
 OPTIONS=catname:Blounds
+# Futurama's Parasites Lost
+OPTIONS=fruit:Pelvic Splanchnic Ganglion
 OPTIONS=gender:female
 OPTIONS=name:srg
 OPTIONS=pettype:cat
 OPTIONS=race:dwarf
 OPTIONS=role:valkyrie
 
-###################
-# General Options #
-###################
-OPTIONS=!autoopen
+####################
+# Gameplay Options #
+####################
+OPTIONS=autoopen
 OPTIONS=!autopickup
-OPTIONS=dark_room
-OPTIONS=disclose:+i +a +v +g +c +o
-OPTIONS=extmenu
-# Futurama
-OPTIONS=fruit:Pelvic Splanchnic Ganglion
-OPTIONS=hilite_pile
-OPTIONS=!implicit_uncursed
-OPTIONS=lit_corridor
-OPTIONS=!mail
-OPTIONS=menustyle:full
-OPTIONS=menu_headings:underline
-#OPTIONS=menu_headings:bold
-OPTIONS=msghistory:15
-OPTIONS=msg_window:reversed
 OPTIONS=number_pad:0
 OPTIONS=paranoid_confirmation:Confirm quit die bones attack pray wand Remove
 OPTIONS=pickup_burden:Burdened
-OPTIONS=pile_limit:10
-OPTIONS=roguesymset:RogueEpyx
+
+###################
+# Display Options #
+###################
+OPTIONS=dark_room
+OPTIOnS=hilite_pet
+OPTIONS=hilite_pile
+OPTIONS=lit_corridor
+OPTIONS=msg_window:reversed
+OPTIONS=msghistory:40
+OPTIONS=pile_limit:0
 OPTIONS=runmode:walk
-OPTIONS=scores:10t 4a o
 OPTIONS=showexp
 OPTIONS=showrace
-OPTIONS=showscore
-OPTIONS=!silent
-OPTIONS=sortloot:full
 OPTIONS=standout
 # MacOS: Use IBMgraphics, but setup a Terminal.app profile to use Latin-US (DOS)
 OPTIONS=symset:IBMgraphics
 OPTIONS=time
 
-##################
-# Window Options #
-##################
+################
+# Menu Options #
+################
+OPTIONS=extmenu
+OPTIONS=!implicit_uncursed
+OPTIONS=menu_headings:underline
+OPTIONS=menustyle:partial
+OPTIONS=sortloot:full
+
+################
+# Misc Options #
+################
+OPTIONS=disclose:+i +a +v +g +c +o
+OPTIONS=!mail
 OPTIONS=!mouse_support
+OPTIONS=news
+OPTIONS=scores:10t 4a o
+OPTIONS=!silent
 
 ##########
 # Colors #
 ##########
-
 OPTIONS=color
 OPTIONS=menucolors
+# Don't use dark gray fg on a black terminal bg
+OPTIONS=!use_darkgray
 
-MENUCOLOR="blessed"=cyan&bold
-MENUCOLOR="cursed"=orange&bold
-MENUCOLOR="uncursed"=green
-MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=underline
-MENUCOLOR="Amulet of Yendor named"=magenta
 MENUCOLOR="gold piece"=yellow
-MENUCOLOR="[a-zA-Z] - [a-zA-Z ]+[ ]+[0-9]+\*[ ]+[a-z]+[ ]+[0-9]+%"=magenta
+MENUCOLOR="blessed"=cyan
+MENUCOLOR="cursed"=red
+MENUCOLOR="uncursed"=green
 
 ###########
 # Symbols #
 ###########
-
 SYMBOLS=S_boulder:8
 
 ############
 # MSGTYPEs #
 ############
-
-# Always prompt for delayed instadeaths...
-MSGTYPE=stop "The couatl swings itself around you!"
-MSGTYPE=stop "The electric eel swings itself around you!"
-MSGTYPE=stop "The giant eel swings itself around you!"
-MSGTYPE=stop "The kraken swings itself around you!"
+# Delayed instadeaths
+MSGTYPE=stop "The * swings itself around you!"
 MSGTYPE=stop "The python grabs you!"
 MSGTYPE=stop "You don't feel very well."
 MSGTYPE=stop "You are turning a little green."
@@ -98,18 +99,28 @@ MSGTYPE=stop "You're gasping for air."
 MSGTYPE=stop "Your blood is having trouble reaching your brain."
 MSGTYPE=stop "You can no longer breathe."
 MSGTYPE=stop "You're turning blue."
-MSGTYPE=stop "Your consciousness is fading."
 MSGTYPE=stop "You feel deathly sick."
 MSGTYPE=stop "You feel much worse."
 MSGTYPE=stop "You feel even worse."
 
-# ...and things that aren't dangerous by themselves but could kill you if you don't notice
+# Slightly less urgent dangers
 MSGTYPE=stop "You fail to cast the spell correctly."
 MSGTYPE=stop "You see here a cockatrice corpse."
 MSGTYPE=stop "You see here a chickatrice corpse."
 MSGTYPE=stop "You are beginning to feel weak."
+MSGTYPE=stop "Your wielded * rots away."
+MSGTYPE=stop "You find a *"
 
-# "Stop" will also kill typeahead if you use the tty interface
-MSGTYPE=stop "You feel a strange vibration under your *."
-MSGTYPE=stop "You feel a strange vibration beneath you."
+MSGTYPE=stop "You feel a strange vibration *"
 
+# Skills/Enhance
+MSGTYPE=stop "You feel more confident *"
+
+# Status
+MSGTYPE=stop "You feel a strange mental acuity"
+#MSGTYPE=stop "*hungry*"
+#MSGTYPE=stop "*munchies*"
+#MSGTYPE=stop "*weak*"
+MSGTYPE=stop "needs food, badly!"
+#MSGTYPE=stop "*faint*"
+#MSGTYPE=stop "*consciousness*"
