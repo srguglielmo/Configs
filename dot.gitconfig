@@ -2,10 +2,19 @@
 	pushUpdateRejected = false
 	statusHints = false
 	statusUoption = false
+[alias]
+	ci = commit
+	cloen = clone
+	co = checkout
+	d = diff
+	dns = diff --name-status
+	last = log -1 HEAD
+	unstage = reset HEAD --
 [column]
 	ui = auto,row
 [commit]
-	gpgSign = true
+# gpgSign breaks subtrees!
+#	gpgSign = true
 [core]
 	autocrlf = input
 	compression = 6
@@ -31,6 +40,6 @@
 [status]
 	branch = true
 [user]
-	email = srg@
+	#email = 
 	name = Stephen Guglielmo
-	signingkey =
+	#signingkey = 
