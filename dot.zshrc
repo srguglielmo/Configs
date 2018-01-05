@@ -8,6 +8,7 @@
 
 export EDITOR=vim
 export GPG_TTY=$(tty)
+# TODO: GREP_OPTIONS is deprecated in GNU grep but not BSD grep
 export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
@@ -18,6 +19,7 @@ export VISUAL=vim
 ###########
 # ALIASES #
 ###########
+# Note: Aliases stack (see 'vi' and 'vim')
 
 # MacOS aliases
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -35,20 +37,19 @@ fi
 alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
-alias g='git'
-alias gp='git pull'
+alias gp='git pull'								# Note: Aliasing g to git breaks tab completion
 alias gs='git status'
 alias le='less'
-alias lphp='find . -type f -name "*.php" -exec php -l {} \; | less'
+alias lphp='find . -type f -name "*.php" -exec php -l {} \; | grep -v "No syntax errors detected in"'
 alias mv='mv -iv'
+alias phpl='lphp'								# I always forget if it's phpl or lphp
 alias rm='rm -iv'
-# Aliases stack:
 alias vi='vim'
 alias vim='vim -p'
 
 # wp-cli
 if [[ -x /usr/local/bin/wp ]]; then
-	alias wp='wp --skip-plugins --skip-themes'
+	alias wps='/usr/local/bin/wp --skip-plugins --skip-themes'
 fi
 
 # Global aliases
@@ -105,8 +106,7 @@ function indicate-my-zle-mode {
 	RPS1+='%F{251}['
 
 	# Print the vi mode that zle is in
-	if [[ $KEYMAP == "main" ]]; then
-		# "main" is insert mode
+	if [[ $KEYMAP == "main" ]]; then			# "main" is insert mode
 		RPS1+='%F{040}INS'
 	elif [[ $KEYMAP == "vicmd" ]]; then
 		RPS1+='%K{088}%F{227}%BCMD%b%k'
@@ -120,8 +120,7 @@ function indicate-my-zle-mode {
 
 	RPS1+='%F{251}]%f'
 
-	# Redraw the prompts
-	zle reset-prompt
+	zle reset-prompt							# Redraw the prompts
 }
 
 # Function that sets the zle mode and preserves the exit status of
@@ -162,8 +161,8 @@ function nethack {
 	if [[ -x $asciinema ]]; then
 		# In order to save a full game to a single asciinema file, even if played over
 		# several sessions, a manual game counter is read/written to $nh_curgame.
-		# The asciicast will be appended to this file until it is incremented (when the game ends).
-		# This is hacky. Improvements are welcome.
+		# The asciicast will be appended to the same file until $nh_curgame is incremented (when the game ends).
+		# This is hacky.
 
 		if [[ -f $nh_curgame && -r $nh_curgame && -w $nh_curgame ]]; then
 			typeset currentgame=$(<$nh_curgame)
@@ -173,8 +172,7 @@ function nethack {
 			# Run it anyway for testing (see .gitignore).
 			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.cast
 
-			# After the session ends, prompt the user to see if $nh_curgame should
-			# be incremented.
+			# After the session ends, prompt to increment $nh_curgame
 			echo "Did your NetHack game just end (death, quit, etc)?"
 			typeset newgame REPLY
 			select newgame in No Yes; do
@@ -297,8 +295,8 @@ zmodload zsh/zutil
 ###########
 
 # Directory
-setopt AUTO_CD AUTO_PUSHD
-#setopt CHASE_DOTS								# Resolve .. to physical dir
+setopt AUTO_CD									# Change dir even if I forget to type `cd`
+setopt AUTO_PUSHD								# Add dirs to the directory stack automatically
 setopt PUSHD_IGNORE_DUPS						# Ignore dupes in the directory stack
 #setopt PUSHD_MINUS								# Swap the meaning of + and -
 
@@ -314,7 +312,6 @@ setopt LIST_ROWS_FIRST							# Left to right, not up to down
 
 # Expansion/Globbing
 unsetopt CASE_GLOB								# Make globbing case-insensitive
-#setopt EXTENDED_GLOB							# Use # ~ ^ for globbing
 setopt MARK_DIRS								# Append / to dirs resulting from globbing
 setopt NUMERIC_GLOB_SORT						# Sort numeric filenames numerically
 #setopt RC_EXPAND_PARAM							# Expand arrays
@@ -325,26 +322,26 @@ setopt WARN_CREATE_GLOBAL
 
 # History
 setopt HIST_FCNTL_LOCK							# Lock the history file when writing
-setopt HIST_IGNORE_ALL_DUPS						# Remove old entries if they\'re dupes
+setopt HIST_IGNORE_ALL_DUPS						# Remove dupes when writing
 setopt HIST_IGNORE_SPACE						# Ignore commands with spaces prepended
 setopt HIST_LEX_WORDS							# Be accurate when reading in a history file
-setopt HIST_NO_FUNCTIONS						# Don\'t record functions
+setopt HIST_NO_FUNCTIONS						# Don't record functions definitions
 setopt HIST_NO_STORE							# Department of Redundancy Department
-setopt HIST_REDUCE_BLANKS						# Don\t record blank commands
-setopt HIST_SAVE_NO_DUPS						# Don\'t save any dupes when writing file
+setopt HIST_REDUCE_BLANKS						# Dont record blank commands
+setopt HIST_SAVE_NO_DUPS						# Don't save any dupes when writing file
 setopt HIST_VERIFY								# Probably a good idea
 setopt INC_APPEND_HISTORY						# Append to history immediately (for multiple terms open at same time)
 unsetopt SHARE_HISTORY							# Not even in ksh mode
 
 # Input/Output
-unsetopt CLOBBER								# Don\'t let > and >> clobber files (use >! or >>! instead)
+unsetopt CLOBBER								# Don't let > and >> clobber files (use >! or >>! instead)
 #setopt CORRECT									# Spell correction on commands
 #setopt CORRECT_ALL								# Spell correction on args
 unsetopt FLOW_CONTROL							# Disable ctrl+s and ctrl+q
 setopt INTERACTIVE_COMMENTS						# Allow comments on interactive sessions
 setopt HASH_EXECUTABLES_ONLY					# Only "cache" the path to to exec files
-#setopt PATH_DIRS								# Search path even for commands with slashes
-unsetopt PATH_SCRIPT							# Don\'t search in path for a passed script argument
+#setopt PATH_DIRS								# Search $path even for commands with slashes
+unsetopt PATH_SCRIPT							# Don't search in path for a passed script argument
 unsetopt RM_STAR_SILENT							# Not even in ksh/sh emulation mode
 setopt RM_STAR_WAIT								# Pause 10 sec after a rm wildcard
 
@@ -358,10 +355,10 @@ setopt PROMPT_SUBST								# Required for vcs_info in prompt
 # Scripts/functions
 setopt C_BASES									# Use 0xFF for hex numbers instead of 16#FF
 setopt LOCAL_LOOPS								# Use break/continue strictly
-unsetopt MULTI_FUNC_DEF							# Don\'t allow func definitions with multiple names
-#unsetopt MULTIOS								# Don\'t automatically add extra tees and pipes
+unsetopt MULTI_FUNC_DEF							# Don't allow func definitions with multiple names
+#unsetopt MULTIOS								# Don't automatically add extra tees and pipes
 setopt PIPE_FAIL								# Return the exit status of the rightmost non-zero
-#setopt SOURCE_TRACE							# Display names of files as they\'re sourced
+#setopt SOURCE_TRACE							# Display names of files as they're sourced
 #setopt XTRACE									# Print commands and args as they are executed
 
 # ZLE
@@ -373,12 +370,13 @@ unsetopt SINGLE_LINE_ZLE						# Not even in KSH emulation mode
 ##########
 
 # Completion
+zstyle ':completion:*' file-sort modification	# Sort completions by last modification time
 zstyle ':completion:*' group-name ''			# Separate completion types in the menu
 zstyle ':completion:*' list-colors ''			# Color listings (req group-name='')
 zstyle ':completion:*' menu select=2			# Use arrow keys with menu, min results
 zstyle ':completion:*' use-compctl false		# Never use old style completions
-
 zstyle ':completion:*' verbose true
+
 zstyle ':completion:*:descriptions' format "%F{green}%d%f"
 
 #zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
@@ -392,7 +390,6 @@ zstyle ':completion:*:descriptions' format "%F{green}%d%f"
 ##zstyle ':completion:*' use-cache on
 ##zstyle ':completion:*' cache-path ~/.zsh/cache
 #zstyle ':completion:*' squeeze-slashes true
-#zstyle ':completion:*' file-sort modification
 
 # compinstall setup
 #zstyle ':completion:*' completions 1
@@ -412,7 +409,7 @@ zstyle ':vcs_info:*' check-for-changes true		# Enable use of %c and %u
 zstyle ':vcs_info:*' enable git					# Only use git (not svn, etc)
 zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
 zstyle ':vcs_info:*' stagedstr '%F{057}Stg '	# %c
-zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '# %u
+zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg ' # %u
 
 #############
 # VARIABLES #
