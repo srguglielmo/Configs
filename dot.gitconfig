@@ -3,10 +3,10 @@
 	statusHints = false
 	statusUoption = false
 [alias]
+	b = branch
 	ci = commit
 	cloen = clone
 	co = checkout
-	d = diff
 	dns = diff --name-status
 	last = log -1 HEAD
 	unstage = reset HEAD --
