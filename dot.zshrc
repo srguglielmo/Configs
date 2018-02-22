@@ -368,13 +368,13 @@ zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg ' # %u
 # Lowercase variables are arrays
 
 # ZSH vars
-cdpath=(. ~/Code ~/Code/GitHub)					# PATH, but for cd
+cdpath=(. ~/Code)								# PATH, but for cd
 #CORRECT_IGNORE=								# Ignore pattern for spell correction
 #CORRECT_IGNORE_FILE=							# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
 DIRSTACKSIZE=10									# Directory history size
 #fignore=()										# File suffixes to ignore during completion
 HISTFILE=~/.zhistory
-#HISTORY_IGNORE									# Ignore pattern for history entries
+HISTORY_IGNORE="(open|l|ls|cd|pwd|exit)"		# Ignore pattern for history entries
 HISTSIZE=10000
 #KEYTIMEOUT=									# In hundredths of a second
 LANG=en_US.UTF-8
@@ -394,10 +394,9 @@ PS1+=')'										# end if
 PS1+="%F{040}%(2L.++.%#)%f "					# Display ++ if in a subshell, else %#
 
 #REPORTMEMORY=200								# Min size in MB to report; Doesn't work right in MacOS
-REPORTTIME=8									# Min seconds to report
+#REPORTTIME=8									# Min seconds to report
 RPS1=""											# Must be empty to display the zle KEYMAP in RPS1 in the very first prompt
 SAVEHIST=10000
-#SPROMPT=										# Prompt used for spell correction
 TIMEFMT='[%*E] [%U CPUusr] [%S CPUsys] [%MMiB Max]'
 TMPPREFIX=/tmp/zsh
 watch=(notme)
