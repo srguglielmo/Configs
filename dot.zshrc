@@ -431,7 +431,7 @@ if [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 	#ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 	#ZSH_AUTOSUGGEST_USE_ASYNC=true
 else
-	echo "WARNING: Missing zsh-autosuggestions!"
+	echo "Missing zsh-autosuggestions!"
 fi
 
 # Load homebrew's zsh-syntax-highlighting (must be last)
