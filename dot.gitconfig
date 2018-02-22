@@ -5,10 +5,11 @@
 [alias]
 	b = branch
 	ci = commit
-	cloen = clone
 	co = checkout
 	dns = diff --name-status
-	last = log -1 HEAD
+	ff = merge --ff-only
+	in = log HEAD..@{u}
+	out = log @{u}..HEAD
 	unstage = reset HEAD --
 [column]
 	ui = auto,row
