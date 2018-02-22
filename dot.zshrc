@@ -24,50 +24,51 @@ export VISUAL=vim
 ###########
 # ALIASES #
 ###########
-# Note: Aliases stack (see 'vi' and 'vim')
+# Note: Aliases stack
 
 # MacOS aliases
 if [[ "$(uname)" == "Darwin" ]]; then
-	alias b='brew'
+	alias grep='ggrep -E --color=auto'			# Always use GNU grep with extended regex
 	alias l='ls -aFGhl'
 	alias lp='ls -aeFGhlO'
 fi
 
-# Homebrew's thefuck
+# https://github.com/nvbn/thefuck
 if [[ -f /usr/local/bin/thefuck ]]; then
 	eval $(/usr/local/bin/thefuck --alias)
+else
+	echo "Missing thefuck!"
 fi
 
 # All-OS aliases
 alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
-alias gp='git pull'								# Note: Aliasing g to git breaks tab completion
 alias gs='git status'
-alias le='less'
 alias lphp='find . -type f -name "*.php" -exec php -l {} \; | grep -v "No syntax errors detected in"'
 alias mv='mv -iv'
 alias phpl='lphp'								# I always forget if it's phpl or lphp
 alias rm='rm -iv'
 alias vi='vim'
-alias vim='vim -p'
 
 # wp-cli
 if [[ -x /usr/local/bin/wp ]]; then
 	alias wps='/usr/local/bin/wp --skip-plugins --skip-themes'
+else
+	echo "Missing wp!"
 fi
 
-# Global aliases
-alias -g G='|grep'
-alias -g L='|less'
+# Global aliases (also stack)
+alias -g G="| grep"
+alias -g L="| $PAGER"
 
 # Suffix aliases ("text.NAME" -> "VALUE text.NAME")
-alias -s css=$EDITOR
-alias -s html=$EDITOR
-alias -s js=$EDITOR
+alias -s css=$VISUAL
+alias -s html=$VISUAL
+alias -s js=$VISUAL
 alias -s log=$PAGER
-alias -s php=$EDITOR
-alias -s txt=$EDITOR
+alias -s php=$VISUAL
+alias -s txt=$VISUAL
 
 # If set, unset
 unalias run-help 2>/dev/null
