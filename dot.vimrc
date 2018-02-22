@@ -1,3 +1,7 @@
+"
+" srg's vimrc
+"
+
 " Behavior
 set backspace=indent,eol,start	" Backspace over autoindents, lines, and start of insert mode
 set encoding=utf-8
