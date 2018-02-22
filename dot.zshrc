@@ -440,10 +440,13 @@ if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
 
 	# Array of highlighters to enable
 	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
-	typeset -A ZSH_HIGHLIGHT_STYLES
 
-	# Comments default to black, which are invisible on a black terminal
-	ZSH_HIGHLIGHT_STYLES[comment]='fg=cyan'
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -r' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -f' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -rf' 'fg=white,bold,bg=red')
+	ZSH_HIGHLIGHT_PATTERNS+=('rm -fr' 'fg=white,bold,bg=red')
+
+	typeset -A ZSH_HIGHLIGHT_STYLES
 
 	# Bracket styles
 	ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=white,bold,bg=red'
@@ -452,11 +455,9 @@ if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]
 	ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
 	ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 	ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]='bg=blue'
-
-	ZSH_HIGHLIGHT_PATTERNS+=('rm -r' 'fg=white,bold,bg=red')
-	ZSH_HIGHLIGHT_PATTERNS+=('rm -f' 'fg=white,bold,bg=red')
-	ZSH_HIGHLIGHT_PATTERNS+=('rm -rf' 'fg=white,bold,bg=red')
-	ZSH_HIGHLIGHT_PATTERNS+=('rm -fr' 'fg=white,bold,bg=red')
+	#
+	# Comments default to black, which are invisible on a black terminal
+	ZSH_HIGHLIGHT_STYLES[comment]='fg=cyan'
 
 	ZSH_HIGHLIGHT_STYLES[cursor]='bg=blue'
 
