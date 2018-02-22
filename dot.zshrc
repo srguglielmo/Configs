@@ -263,21 +263,19 @@ setopt BASH_AUTO_LIST							# Show completion menu on 2nd tab
 setopt COMPLETE_ALIASES
 setopt COMPLETE_IN_WORD							# Must be set for the _prefix completer
 setopt GLOB_COMPLETE							# Use a completion menu for glob pattern matching
-#setopt LIST_PACKED								# Pack more info in the completion list
 setopt LIST_ROWS_FIRST							# Left to right, not up to down
-#setopt REC_EXACT								# Accept exact command match if it exists
 
 # Expansion/Globbing
 unsetopt CASE_GLOB								# Make globbing case-insensitive
 setopt MARK_DIRS								# Append / to dirs resulting from globbing
 setopt NUMERIC_GLOB_SORT						# Sort numeric filenames numerically
-#setopt RC_EXPAND_PARAM							# Expand arrays
 setopt REMATCH_PCRE								# =~ uses zsh/pcre (else uses the sytem ereg libraries)
 #unsetopt UNSET									# zsh-syntax-highlighting complains with this unset
 setopt WARN_CREATE_GLOBAL
 #setopt WARN_NESTED_VAR							# vcs_info complains with this set
 
 # History
+unsetopt BANG_HIST								# I don't use ! commands
 setopt HIST_FCNTL_LOCK							# Lock the history file when writing
 setopt HIST_IGNORE_ALL_DUPS						# Remove dupes when writing
 setopt HIST_IGNORE_SPACE						# Ignore commands with spaces prepended
@@ -292,12 +290,9 @@ unsetopt SHARE_HISTORY							# Not even in ksh mode
 
 # Input/Output
 unsetopt CLOBBER								# Don't let > and >> clobber files (use >! or >>! instead)
-#setopt CORRECT									# Spell correction on commands
-#setopt CORRECT_ALL								# Spell correction on args
 unsetopt FLOW_CONTROL							# Disable ctrl+s and ctrl+q
-setopt INTERACTIVE_COMMENTS						# Allow comments on interactive sessions
 setopt HASH_EXECUTABLES_ONLY					# Only "cache" the path to to exec files
-#setopt PATH_DIRS								# Search $path even for commands with slashes
+setopt INTERACTIVE_COMMENTS						# Allow comments on interactive sessions
 unsetopt PATH_SCRIPT							# Don't search in path for a passed script argument
 unsetopt RM_STAR_SILENT							# Not even in ksh/sh emulation mode
 setopt RM_STAR_WAIT								# Pause 10 sec after a rm wildcard
@@ -307,7 +302,6 @@ setopt LONG_LIST_JOBS							# Long listing by default
 
 # Prompt
 setopt PROMPT_SUBST								# Required for vcs_info in prompt
-#setopt TRANSIENT_RPROMPT
 
 # Scripts/functions
 setopt C_BASES									# Use 0xFF for hex numbers instead of 16#FF
