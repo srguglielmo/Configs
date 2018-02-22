@@ -11,6 +11,13 @@ export GPG_TTY=$(tty)							# For gpg-agent
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
 export LESSSECURE=1
+export LESS_TERMCAP_mb=$(printf "\e[1;31m")
+export LESS_TERMCAP_md=$(printf "\e[1;31m")
+export LESS_TERMCAP_me=$(printf "\e[0m")
+export LESS_TERMCAP_se=$(printf "\e[0m")
+export LESS_TERMCAP_so=$(printf "\e[1;44;33m")
+export LESS_TERMCAP_ue=$(printf "\e[0m")
+export LESS_TERMCAP_us=$(printf "\e[1;32m")
 export PAGER=less
 export VISUAL=vim
 
