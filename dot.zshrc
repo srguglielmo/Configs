@@ -406,17 +406,17 @@ watch=(notme)
 #######
 
 # Create user defined widgets that use the above loaded widgets
-zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
-
-# zle-line-init is a widget that is executed every time zle is
-# started to read a new line of input. Override it with our own function.
-zle -N zle-line-init my-zle-line-init
+zle -N up-line-or-beginning-search
 
 # zle-keymap-select is a widget that is executed every time KEYMAP changes
 # while the line editor is active. $KEYMAP within the function is the
 # new keymap. The old keymap is passed as the sole argument. 
 zle -N zle-keymap-select my-zle-keymap-select
+
+# zle-line-init is a widget that is executed every time zle is
+# started to read a new line of input. Override it with our own function.
+zle -N zle-line-init my-zle-line-init
 
 ##################
 # INITIALIZATION #
