@@ -11,35 +11,49 @@
 	in = log HEAD..@{u}
 	out = log @{u}..HEAD
 	unstage = reset HEAD --
+[color]
+	ui = auto
 [column]
 	ui = auto,row
 [commit]
-# gpgSign breaks subtrees!
-#	gpgSign = true
+	# gpgSign breaks 'subtree pull'; disable for sub-repos
+	gpgsign = true
 [core]
-	autocrlf = input
+	autocrlf = false
 	compression = 6
 	editor = vim
 	safecrlf = true
 	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
-[merge]
+[diff]
+	submodule = log
 	tool = vimdiff
+[difftool]
+	prompt = false
 [fetch]
 	fsckObjects = true
+	prune = true
+[interactive]
+	singleKey = true
 [log]
+	decorate = full
 	showSignature = true
+[merge]
+	tool = vimdiff
+[pager]
+	branch = false
+[push]
+	default = nothing
 [rebase]
 	instructionFormat = %h %G? (%an <%ae>) %s
 	missingCommitsCheck = warn
 	stat = true
 [receive]
 	fsckObjects = true
-[transfer]
-	fsckObjects = true
-[push]
-	default = nothing
 [status]
 	branch = true
+	submoduleSummary = true
+[transfer]
+	fsckObjects = true
 [user]
 	#email = 
 	name = Stephen Guglielmo
