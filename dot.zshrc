@@ -152,69 +152,22 @@ function my-zle-line-init {
 # Wrapper to commit to https://github.com/srguglielmo/NetHackHistory
 function nethack {
 	if [[ "$(uname)" == "Darwin" ]]; then
-		typeset nh_libexec_path="/usr/local/Cellar/nethack/3.6.0/libexec"
-		typeset nh_curgame="$nh_libexec_path/currentgame"
-		typeset asciinema="/usr/local/bin/asciinema"
+		typeset nh_libexec_path="/usr/local/opt/nethack/libexec"
+		typeset nh_exec="/usr/local/bin/nethack"
 	else
 		echo "ERROR: Unknown OS"
 		return 1
 	fi
-	
-	git -C $nh_libexec_path pull --quiet
-		
-	if [[ -x $asciinema ]]; then
-		# In order to save a full game to a single asciinema file, even if played over
-		# several sessions, a manual game counter is read/written to $nh_curgame.
-		# The asciicast will be appended to the same file until $nh_curgame is incremented (when the game ends).
-		# This is hacky.
 
-		if [[ -f $nh_curgame && -r $nh_curgame && -w $nh_curgame ]]; then
-			typeset currentgame=$(<$nh_curgame)
-
-			# NOTE: asciinema 1.x does not currently support appending the file!
-			# Version 2.x, once released, will support --append.
-			# Run it anyway for testing (see .gitignore).
-			$asciinema rec --command=nethack --title="NetHack Game $currentgame" $nh_libexec_path/asciicasts/Game$currentgame.cast
-
-			# After the session ends, prompt to increment $nh_curgame
-			echo "Did your NetHack game just end (death, quit, etc)?"
-			typeset newgame REPLY
-			select newgame in No Yes; do
-				case "$newgame" in
-					"Yes")
-						echo "Incrementing $nh_curgame"
-						currentgame=$((currentgame + 1))
-						echo "$currentgame" >! $nh_curgame
-						break
-						;;
-					"No")
-						echo "Not incrementing $nh_curgame"
-						break
-						;;
-					*)
-						echo "Something went wrong..."
-						return 1
-				esac
-			done
-		else
-			echo "ERROR: Missing/unreadable/unwritable $nh_curgame"
-			return 1
-		fi
-	else
-		echo "Warning: asciinema not found. Game will not be recorded. Press ctrl+c to quit now."
-		for ((typeset i=0; i<7; i++)); do
-			sleep 1
-			echo -n "."
-		done
-
-		nethack
+	if [[ ! -x $nh_exec  ]]; then
+		echo "ERROR: Nethack executable not found!"
+		return 1
 	fi
 
+	git -C $nh_libexec_path fetch --prune github/master && \
+	git -C $nh_libexec_path merge --ff-only github/master && \
+	$nh_exec && \
 	git -C $nh_libexec_path commit --all --message='Autocommit'
-	
-	# Don't push to GitHub automatically in case the commit message is --append'ed,
-	# but cd into $nh_libexec_path so it can be pushed manually if desired.
-	cd $nh_libexec_path
 }
 
 # Gather the git info just before each prompt
