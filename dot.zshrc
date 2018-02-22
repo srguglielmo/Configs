@@ -129,14 +129,12 @@ function indicate-my-zle-mode {
 	zle reset-prompt							# Redraw the prompts
 }
 
-# Function that sets the zle mode and preserves the exit status of
-# the previous command.
+# Set the zle mode and preserve the exit status of the previous command
 function my-zle-keymap-select {
 	# Set RPS1
 	indicate-my-zle-mode
 
-	# Anonymous function, executed immediately; returns the last
-	# program's exit code for use in in $PS1
+	# Return the last program's exit code for use in in $PS1
 	function {
 		return $__prompt_status
 	}
