@@ -6,10 +6,8 @@
 ############
 # Env vars must be first because commands below use them
 
-export EDITOR=vim
-export GPG_TTY=$(tty)
-# TODO: GREP_OPTIONS is deprecated in GNU grep but not BSD grep
-export GREP_OPTIONS='--extended-regexp --binary-file=without-match'
+export EDITOR="vim -e"							# Ex-mode
+export GPG_TTY=$(tty)							# For gpg-agent
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
 export LESSSECURE=1
