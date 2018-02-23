@@ -164,8 +164,8 @@ function nethack {
 		return 1
 	fi
 
-	git -C $nh_libexec_path fetch --prune github/master && \
-	git -C $nh_libexec_path merge --ff-only github/master && \
+	git -C $nh_libexec_path fetch --prune && \
+	git -C $nh_libexec_path merge --ff-only && \
 	$nh_exec && \
 	git -C $nh_libexec_path commit --all --message='Autocommit'
 }
