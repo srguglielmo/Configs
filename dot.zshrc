@@ -134,27 +134,6 @@ function my-zle-line-init {
 	typeset -g __prompt_status="$?"
 }
 
-# Wrapper to commit to https://github.com/srguglielmo/NetHackHistory
-function nethack {
-	if [[ "$(uname)" == "Darwin" ]]; then
-		typeset nh_libexec_path="/usr/local/opt/nethack/libexec"
-		typeset nh_exec="/usr/local/bin/nethack"
-	else
-		echo "ERROR: Unknown OS"
-		return 1
-	fi
-
-	if [[ ! -x $nh_exec  ]]; then
-		echo "ERROR: Nethack executable not found!"
-		return 1
-	fi
-
-	git -C $nh_libexec_path fetch --prune && \
-	git -C $nh_libexec_path merge --ff-only && \
-	$nh_exec && \
-	git -C $nh_libexec_path commit --all --message='Autocommit'
-}
-
 # Gather the git info just before each prompt
 function precmd {
 	vcs_info
