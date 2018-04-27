@@ -31,13 +31,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 	alias grep='ggrep --color=auto'				# Always use GNU grep
 	alias l='ls -aFGhl'
 	alias lp='ls -aeFGhlO'
-fi
-
-# https://github.com/nvbn/thefuck
-if [[ -f /usr/local/bin/thefuck ]]; then
-	eval $(/usr/local/bin/thefuck --alias)
-else
-	echo "Missing thefuck!"
+	alias units='gunits'						# GNU Units
 fi
 
 # All-OS aliases
@@ -48,13 +42,6 @@ alias gs='git status'
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias vi='vim'
-
-# wp-cli
-if [[ -x /usr/local/bin/wp ]]; then
-	alias wps='/usr/local/bin/wp --skip-plugins --skip-themes'
-else
-	echo "Missing wp!"
-fi
 
 # Global aliases (also stack)
 alias -g G="| grep"
