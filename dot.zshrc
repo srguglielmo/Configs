@@ -88,6 +88,36 @@ function command_not_found_handler {
 	exit 127
 }
 
+# Upgrade a Drupal Project
+# This will `rm -rf` the given directory, run `drush dl ${name}-7.x`,
+# then show the version diff.
+function dp_upgrade {
+	if [ "" = "$1" ]; then
+		echo "Invalid argument. Provide a Drupal Project/Directory path.\n"
+		exit 1
+	fi
+
+	# Remove slashes
+	$Module="$(echo $1 | sed 's/\///g')"
+
+	if [ ! -d "$Module" ] || [ ! -w "$Module" ]; then
+		echo "The given directory does not exist or is not writable.\n"
+		exit 1
+	fi
+	
+	#echo "Delete ./${Module}? "
+	# TODO Prompt for confirmation
+
+	rm -frv $Module
+	drush dl $Module-7.x
+
+	OldVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^-version = ' | awk '{print $3}' | tr -d '"')
+	NewVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^\+version = ' | awk '{print $3}' | tr -d '"')
+
+	git add $Module
+	git commit --edit --message="Upgrade $Module from ${OldVer} to ${NewVer}"
+}
+
 # Function that sets the right prompt based on the current zle vi mode
 # and the git status/branch. This is called from my-zle-line-init()
 # and my-zle-keymap-select().
