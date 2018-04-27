@@ -356,10 +356,10 @@ zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg ' # %u
 cdpath=(. ~/Code)								# PATH, but for cd
 #CORRECT_IGNORE=								# Ignore pattern for spell correction
 #CORRECT_IGNORE_FILE=							# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
-DIRSTACKSIZE=10									# Directory history size
+DIRSTACKSIZE=20									# Directory history size
 #fignore=()										# File suffixes to ignore during completion
 HISTFILE=~/.zhistory
-HISTORY_IGNORE="(open|l|ls|cd|pwd|exit)"		# Ignore pattern for history entries
+HISTORY_IGNORE="(l|ls|pwd|exit)"				# Ignore pattern for history entries
 HISTSIZE=10000
 #KEYTIMEOUT=									# In hundredths of a second
 LANG=en_US.UTF-8
