@@ -410,15 +410,6 @@ zle -N zle-line-init my-zle-line-init
 # Execute the completion function (which was autoloaded above)
 compinit
 
-# Load homebrew's zsh-autosuggestions
-if [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-	#source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-	#ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
-	#ZSH_AUTOSUGGEST_USE_ASYNC=true
-else
-	echo "Missing zsh-autosuggestions!"
-fi
-
 # Load homebrew's zsh-syntax-highlighting (must be last)
 if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
