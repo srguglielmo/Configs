@@ -4,6 +4,7 @@
 	statusUoption = false
 [alias]
 	b = branch
+	bl = branch -av
 	ci = commit
 	co = checkout
 	dns = diff --name-status
@@ -16,7 +17,6 @@
 [column]
 	ui = auto,row
 [commit]
-	# gpgSign breaks 'subtree pull'; disable for sub-repos
 	gpgsign = true
 [core]
 	autocrlf = false
@@ -34,9 +34,6 @@
 	prune = true
 [interactive]
 	singleKey = true
-[log]
-	decorate = full
-	showSignature = true
 [merge]
 	tool = vimdiff
 [pager]
@@ -45,7 +42,7 @@
 	default = nothing
 [rebase]
 	instructionFormat = %h %G? (%an <%ae>) %s
-	missingCommitsCheck = warn
+	missingCommitsCheck = error
 	stat = true
 [receive]
 	fsckObjects = true
