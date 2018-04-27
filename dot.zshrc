@@ -28,7 +28,7 @@ export VISUAL=vim
 
 # MacOS aliases
 if [[ "$(uname)" == "Darwin" ]]; then
-	alias grep='ggrep -E --color=auto'			# Always use GNU grep with extended regex
+	alias grep='ggrep --color=auto'				# Always use GNU grep
 	alias l='ls -aFGhl'
 	alias lp='ls -aeFGhlO'
 fi
@@ -45,9 +45,7 @@ alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias gs='git status'
-alias lphp='find . -type f -name "*.php" -exec php -l {} \; | grep -v "No syntax errors detected in"'
 alias mv='mv -iv'
-alias phpl='lphp'								# I always forget if it's phpl or lphp
 alias rm='rm -iv'
 alias vi='vim'
 
