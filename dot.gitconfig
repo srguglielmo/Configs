@@ -34,6 +34,8 @@
 	prune = true
 [interactive]
 	singleKey = true
+[log]
+	date = relative
 [merge]
 	tool = vimdiff
 [pager]
