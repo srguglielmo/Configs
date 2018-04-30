@@ -12,7 +12,11 @@ w -hi | grep -v $USER
 
 # Homebrew's fortune
 if [[ -x /usr/local/bin/fortune ]]; then
-	/usr/local/bin/fortune -as
+	if [[ -x /usr/local/bin/lolcat ]]; then
+		/usr/local/bin/fortune -as | /usr/local/bin/lolcat
+	else
+		/usr/local/bin/fortune -as
+	fi
 fi
 
 #log
