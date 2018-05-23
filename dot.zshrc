@@ -67,7 +67,7 @@ unalias which-command 2>/dev/null
 
 # Search path for function definitions
 $fpath=()										# Don't look anywhere unless told
-if [[ "$(uname)" == "Darwin" ]]; then
+if [ "$(uname)" = "Darwin" ]; then
 	# Homebrew's zsh
 	$fpath=(/usr/local/opt/zsh/share/zsh/functions)
 
@@ -131,13 +131,13 @@ function indicate-my-zle-mode {
 	RPS1+='%F{251}['
 
 	# Print the vi mode that zle is in
-	if [[ $KEYMAP == "main" ]]; then			# "main" is insert mode
+	if [ $KEYMAP = "main" ]; then				# "main" is insert mode
 		RPS1+='%F{040}INS'
-	elif [[ $KEYMAP == "vicmd" ]]; then
+	elif [ $KEYMAP = "vicmd" ]; then
 		RPS1+='%K{088}%F{227}%BCMD%b%k'
-	elif [[ $KEYMAP == "viopp" ]]; then
+	elif [ $KEYMAP = "viopp" ]; then
 		RPS1+='%K{088}%F{227}%BOPP%b%k'
-	elif [[ $KEYMAP == "visual" ]]; then
+	elif [ $KEYMAP = "visual" ]; then
 		RPS1+='%K{088}%F{227}%BVIS%b%k'
 	else
 		RPS1+="%K{088}%F{227}%BERR/$KEYMAP%b%k"
@@ -210,7 +210,7 @@ bindkey '^[[B' down-line-or-beginning-search
 
 # Search path for zmodload
 module_path=()
-if [[ "$(uname)" == "Darwin" ]]; then
+if [ "$(uname)" = "Darwin" ]; then
 	module_path=(/usr/local/opt/zsh/lib)
 elif [ "$(uname)" = "Linux" ]; then
 	module_path=(/usr/lib/zsh/${ZSH_VERSION})
