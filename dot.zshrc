@@ -40,11 +40,12 @@ alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias gs='git status'
+alias gfs='git fetch --verbose --prune --all && git status'
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias vi='vim'
 
-# Global aliases (also stack)
+# Global aliases
 alias -g G="| grep"
 alias -g L="| $PAGER"
 
