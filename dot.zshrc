@@ -26,12 +26,13 @@ export VISUAL=vim
 ###########
 # Note: Aliases stack
 
-# MacOS aliases
-if [[ "$(uname)" == "Darwin" ]]; then
-	alias grep='ggrep --color=auto'				# Always use GNU grep
+if [ "$(uname)" = "Darwin" ]; then
+	alias grep='ggrep --color=auto'				# GNU grep
 	alias l='ls -aFGhl'
-	alias lp='ls -aeFGhlO'
 	alias units='gunits'						# GNU Units
+elif [ "$(uname)" = "Linux" ]; then
+	alias grep='grep --color=auto'
+	alias l='ls -aFhl --color=auto'
 fi
 
 # All-OS aliases
