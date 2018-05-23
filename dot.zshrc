@@ -463,10 +463,19 @@ zle -N zle-line-init my-zle-line-init
 # Execute the completion function (which was autoloaded above)
 compinit
 
-# Load homebrew's zsh-syntax-highlighting (must be last)
-if [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+ZSH_SYNTAX_HIGHLIGHTING_SOURCED=no
+# Load zsh-syntax-highlighting (must be last)
+if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+	# Homebrew
+	ZSH_SYNTAX_HIGHLIGHTING_SOURCED=yes
 	source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+	# Arch
+	ZSH_SYNTAX_HIGHLIGHTING_SOURCED=yes
+	source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
+if [ "yes" = "$ZSH_SYNTAX_HIGHLIGHTING_SOURCED" ]; then
 	# Array of highlighters to enable
 	ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor root)
 
