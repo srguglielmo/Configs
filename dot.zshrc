@@ -76,6 +76,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
 	# Completions provided by additional homebrew packages
 	$fpath=(/usr/local/share/zsh/site-functions $fpath)
+elif [ "$(uname)" = "Linux" ]; then
+	$fpath=(/usr/share/zsh/site-functions)
 fi
 
 # Functions to autoload from $fpath
@@ -210,6 +212,8 @@ bindkey '^[[B' down-line-or-beginning-search
 module_path=()
 if [[ "$(uname)" == "Darwin" ]]; then
 	module_path=(/usr/local/opt/zsh/lib)
+elif [ "$(uname)" = "Linux" ]; then
+	module_path=(/usr/lib/zsh/${ZSH_VERSION})
 fi
 
 # Provides extensions to completion listings:
