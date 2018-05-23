@@ -115,8 +115,8 @@ function dp_upgrade {
 	rm -frv $Module
 	drush dl $Module-7.x
 
-	OldVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^-version = ' | awk '{print $3}' | tr -d '"')
-	NewVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^\+version = ' | awk '{print $3}' | tr -d '"')
+	typeset OldVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^-version = ' | awk '{print $3}' | tr -d '"')
+	typeset NewVer=$(git diff -- "${Module}/${Module}.info" | /usr/bin/grep -E '^\+version = ' | awk '{print $3}' | tr -d '"')
 
 	git add $Module
 	git commit --edit --message="Upgrade $Module from ${OldVer} to ${NewVer}"
