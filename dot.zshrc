@@ -89,7 +89,45 @@ autoload -Uz vcs_info							# Contrib; version control info
 # Custom handling of unknown commands
 function command_not_found_handler {
 	printf "\t\t¯\_(ツ)_/¯\n"
-	exit 127
+	return 127
+}
+
+# Compare a local Drupal Project with a copy from drupal.org.
+function dp_diff {
+	# Ensure we're passed one argument
+	if [ 1 -ne $ARGC ]; then
+		echo "Invalid arguments: Must provide path to current module dir."
+		echo "Ex: ./$0 views/"
+		return 1
+	fi
+
+	# Remove slashes, if present
+	typeset Dir="$(echo $1 | sed 's/\///g')"
+
+	# Ensure the given dir exists
+	if [ ! -d "./$Dir" ]; then
+		echo "The given directory ./$Dir does not exist!"
+		return 1
+	fi
+
+	# Get the version of the local module
+	# This assumes the directory is named after the module that's in it
+	typeset Version=$(grep -E '^version = ' ${Dir}/${Dir}.info| awk '{print $3}' | tr -d '"')
+
+	# Create the temp directory
+	if ! mkdir -p ./.dp_diff; then
+		echo "ERROR: Failed to create ./.dp_diff directory"
+		return 1
+	fi
+
+	# Download the specified version of the module from drupal.org
+	drush --quiet dl --destination=.dp_diff/ "${Dir}-${Version}"
+
+	# Run a diff between the local copy and the temp drupal.org copy
+	/usr/bin/diff -qr ./.dp_diff/$Dir $Dir
+
+	# Cleanup the temp dir
+	/bin/rm -rf ./.dp_diff/
 }
 
 # Upgrade a Drupal Project
