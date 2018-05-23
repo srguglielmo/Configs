@@ -1,5 +1,5 @@
 # srg's .zlogin
-# This is run for login shells after .zshrc.
+# Run by login shells only, after ~/.zshrc.
 
 # Freeze the terminal settings.
 #ttyctl -f

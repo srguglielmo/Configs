@@ -1,5 +1,5 @@
 # srg's ~/.zshrc
-# Run for interactive shells
+# Run by interactive shells only, both login and non-login.
 
 ############
 # ENV VARS #

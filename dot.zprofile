@@ -1,3 +1,3 @@
 # srg's .zprofile
-# This is run for login shells before .zshrc.
+# Run by login shells only, before ~/.zshrc.
 
