@@ -131,20 +131,20 @@ function dp_diff {
 }
 
 # Upgrade a Drupal Project
-# This will `rm -rf` the given directory, run `drush dl ${name}-7.x`,
-# then show the version diff.
+# This will remove the given directory, download the latest 7.x version from drupal.org,
+# then stage the new version in git.
 function dp_upgrade {
 	if [ "" = "$1" ]; then
-		echo "Invalid argument. Provide a Drupal Project/Directory path.\n"
-		exit 1
+		echo "Invalid argument. Provide a Drupal Project/Directory path."
+		return 1
 	fi
 
 	# Remove slashes
-	$Module="$(echo $1 | sed 's/\///g')"
+	typeset Module="$(echo $1 | sed 's/\///g')"
 
 	if [ ! -d "$Module" ] || [ ! -w "$Module" ]; then
-		echo "The given directory does not exist or is not writable.\n"
-		exit 1
+		echo "The given directory does not exist or is not writable."
+		return 1
 	fi
 	
 	#echo "Delete ./${Module}? "
