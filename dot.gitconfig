@@ -1,7 +1,6 @@
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
-	statusUoption = false
 [alias]
 	b = branch
 	bl = branch -av
@@ -11,11 +10,14 @@
 	ff = merge --ff-only
 	in = log HEAD..@{u}
 	out = log @{u}..HEAD
-	unstage = reset HEAD --
 [color]
 	ui = auto
 [column]
-	ui = auto,row
+	ui = auto
+	branch = auto
+	clean = auto
+	status = auto
+	tag = auto
 [commit]
 	gpgsign = true
 [core]
