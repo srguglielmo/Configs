@@ -46,13 +46,13 @@
 [push]
 	default = nothing
 [rebase]
+	abbreviateCommands = true
 	instructionFormat = %h %G? (%an <%ae>) %s
 	missingCommitsCheck = error
 	stat = true
 [receive]
 	fsckObjects = true
 [status]
-	branch = true
 	submoduleSummary = true
 [transfer]
 	fsckObjects = true
