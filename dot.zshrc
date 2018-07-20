@@ -29,6 +29,7 @@ export VISUAL=vim
 if [ "$(uname)" = "Darwin" ]; then
 	alias grep='ggrep --color=auto'				# GNU grep
 	alias l='ls -aFGhl'
+	alias ls='ls -aFGh'
 	alias units='gunits'						# GNU Units
 elif [ "$(uname)" = "Linux" ]; then
 	alias grep='grep --color=auto'
