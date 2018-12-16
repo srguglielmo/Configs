@@ -1,5 +1,5 @@
 #
-# srg's NetHack 3.6.0 config
+# srg's NetHack 3.6.1 config
 #
 
 #############
@@ -19,36 +19,74 @@ OPTIONS=role:valkyrie
 ####################
 # Gameplay Options #
 ####################
-OPTIONS=autoopen
 OPTIONS=!autopickup
+OPTIONS=autoquiver
 OPTIONS=number_pad:0
-OPTIONS=paranoid_confirmation:Confirm quit die bones attack pray wand Remove
+OPTIONS=paranoid_confirmation:all
 OPTIONS=pickup_burden:Burdened
 
 ###################
 # Display Options #
 ###################
+OPTIONS=autodescribe
 OPTIONS=dark_room
-OPTIOnS=hilite_pet
+OPTIONS=hilite_pet
 OPTIONS=hilite_pile
 OPTIONS=lit_corridor
+OPTIONS=mention_walls
 OPTIONS=msg_window:reversed
 OPTIONS=msghistory:40
 OPTIONS=pile_limit:0
-OPTIONS=runmode:walk
+OPTIONS=runmode:crawl
 OPTIONS=showexp
 OPTIONS=showrace
 OPTIONS=standout
 # MacOS: Use IBMgraphics, but setup a Terminal.app profile to use Latin-US (DOS)
 OPTIONS=symset:IBMgraphics
 OPTIONS=time
+OPTIONS=whatis_coord:f
+OPTIONS=whatis_filter:v
+OPTIONS=whatis_menu
+
+#########
+# Color #
+#########
+OPTIONS=color
+#OPTIONS=!use_darkgray   # Don't use dark gray fg on a black terminal bg
+OPTIONS=hitpointbar      # Color name and rank in status line
+
+OPTIONS=statushilites:10
+OPTIONS=hilite_status:gold/always/yellow
+OPTIONS=hilite_status:alignment/lawful/lightgreen
+OPTIONS=hilite_status:experience-level/changed/white/always/cyan
+# Specify multiple cutoffs for all ability scores.
+OPTIONS=hilite_status:characteristics/<5/red
+OPTIONS=hilite_status:characteristics/>6/orange
+OPTIONS=hilite_status:characteristics/>8/brown
+OPTIONS=hilite_status:characteristics/>11/yellow
+OPTIONS=hilite_status:characteristics/>13/green
+OPTIONS=hilite_status:characteristics/>16/cyan
+OPTIONS=hilite_status:characteristics/>18/lightblue
+OPTIONS=hilite_status:carrying-capacity/burdened/yellow/stressed/orange
+OPTIONS=hilite_status:hitpoints/100%/brightgreen
+OPTIONS=hilite_status:hitpoints/<100%/green
+OPTIONS=hilite_status:hitpoints/<60%/yellow
+OPTIONS=hilite_status:hitpoints/<40%/red
+
+OPTIONS=menucolors
+MENUCOLOR="* cursed *"=red
+MENUCOLOR="* unholy *"=red
+MENUCOLOR="* blessed *"=green
+MENUCOLOR="* holy *"=green
 
 ################
 # Menu Options #
 ################
 OPTIONS=extmenu
+OPTIONS=force_invmenu
 OPTIONS=!implicit_uncursed
 OPTIONS=menu_headings:underline
+OPTIONS=menu_objsyms
 OPTIONS=menustyle:partial
 OPTIONS=sortloot:full
 
@@ -58,22 +96,8 @@ OPTIONS=sortloot:full
 OPTIONS=disclose:+i +a +v +g +c +o
 OPTIONS=!mail
 OPTIONS=!mouse_support
-OPTIONS=news
 OPTIONS=scores:10t 4a o
 OPTIONS=!silent
-
-##########
-# Colors #
-##########
-OPTIONS=color
-OPTIONS=menucolors
-# Don't use dark gray fg on a black terminal bg
-OPTIONS=!use_darkgray
-
-MENUCOLOR="gold piece"=yellow
-MENUCOLOR="blessed"=cyan
-MENUCOLOR="cursed"=red
-MENUCOLOR="uncursed"=green
 
 ###########
 # Symbols #
@@ -83,44 +107,4 @@ SYMBOLS=S_boulder:8
 ############
 # MSGTYPEs #
 ############
-# Delayed instadeaths
-MSGTYPE=stop "The * swings itself around you!"
-MSGTYPE=stop "The python grabs you!"
-MSGTYPE=stop "You don't feel very well."
-MSGTYPE=stop "You are turning a little green."
-MSGTYPE=stop "Your limbs are getting oozy."
-MSGTYPE=stop "Your skin begins to peel away."
-MSGTYPE=stop "You are turning into a green slime."
-MSGTYPE=stop "You are slowing down."
-MSGTYPE=stop "Your limbs are stiffening."
-MSGTYPE=stop "It constricts your throat!"
-MSGTYPE=stop "You find it hard to breathe."
-MSGTYPE=stop "You're gasping for air."
-MSGTYPE=stop "Your blood is having trouble reaching your brain."
-MSGTYPE=stop "You can no longer breathe."
-MSGTYPE=stop "You're turning blue."
-MSGTYPE=stop "You feel deathly sick."
-MSGTYPE=stop "You feel much worse."
-MSGTYPE=stop "You feel even worse."
-
-# Slightly less urgent dangers
-MSGTYPE=stop "You fail to cast the spell correctly."
-MSGTYPE=stop "You see here a cockatrice corpse."
-MSGTYPE=stop "You see here a chickatrice corpse."
-MSGTYPE=stop "You are beginning to feel weak."
-MSGTYPE=stop "Your wielded * rots away."
-MSGTYPE=stop "You find a *"
-
-MSGTYPE=stop "You feel a strange vibration *"
-
-# Skills/Enhance
-MSGTYPE=stop "You feel more confident *"
-
-# Status
-MSGTYPE=stop "You feel a strange mental acuity"
-#MSGTYPE=stop "*hungry*"
-#MSGTYPE=stop "*munchies*"
-#MSGTYPE=stop "*weak*"
-MSGTYPE=stop "needs food, badly!"
-#MSGTYPE=stop "*faint*"
-#MSGTYPE=stop "*consciousness*"
+MSGTYPE=stop "*"
