@@ -50,16 +50,16 @@ alias rm='rm -iv'
 alias vi='vim'
 
 # Global aliases
-alias -g G="| grep"
-alias -g L="| $PAGER"
+#alias -g G="| grep"
+#alias -g L="| $PAGER"
 
 # Suffix aliases ("text.NAME" -> "VALUE text.NAME")
-alias -s css=$VISUAL
-alias -s html=$VISUAL
-alias -s js=$VISUAL
-alias -s log=$PAGER
-alias -s php=$VISUAL
-alias -s txt=$VISUAL
+#alias -s css=$VISUAL
+#alias -s html=$VISUAL
+#alias -s js=$VISUAL
+#alias -s log=$PAGER
+#alias -s php=$VISUAL
+#alias -s txt=$VISUAL
 
 # If set, unset
 unalias run-help 2>/dev/null
