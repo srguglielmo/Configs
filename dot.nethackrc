@@ -44,7 +44,6 @@ OPTIONS=standout
 # MacOS: Use IBMgraphics, but setup a Terminal.app profile to use Latin-US (DOS)
 OPTIONS=symset:IBMgraphics
 OPTIONS=time
-OPTIONS=whatis_coord:f
 OPTIONS=whatis_filter:v
 OPTIONS=whatis_menu
 
