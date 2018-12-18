@@ -27,10 +27,13 @@ export VISUAL=vim
 # Note: Aliases stack
 
 if [ "$(uname)" = "Darwin" ]; then
-	alias grep='ggrep --color=auto'				# GNU grep
+	# Use GNU utils on Mac
+	alias find='gfind'
+	alias grep='ggrep --color=auto'
 	alias l='ls -aFGhl'
 	alias ls='ls -aFGh'
-	alias units='gunits'						# GNU Units
+	alias sed='gsed'
+	alias units='gunits'
 elif [ "$(uname)" = "Linux" ]; then
 	alias grep='grep --color=auto'
 	alias l='ls -aFhl --color=auto'
