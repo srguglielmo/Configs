@@ -74,10 +74,12 @@ OPTIONS=hilite_status:hitpoints/<60%/yellow
 OPTIONS=hilite_status:hitpoints/<40%/red
 
 OPTIONS=menucolors
-MENUCOLOR="* cursed *"=red
-MENUCOLOR="* unholy *"=red
-MENUCOLOR="* blessed *"=green
-MENUCOLOR="* holy *"=green
+MENUCOLOR="blessed"=cyan&bold
+MENUCOLOR="cursed"=orange&bold
+MENUCOLOR="uncursed"=green
+MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=red&bold
+MENUCOLOR="Amulet of Yendor named"=magenta
+MENUCOLOR="gold piece"=yellow
 
 ################
 # Menu Options #
