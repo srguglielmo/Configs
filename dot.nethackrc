@@ -59,7 +59,7 @@ OPTIONS=statushilites:10
 OPTIONS=hilite_status:gold/always/yellow
 OPTIONS=hilite_status:alignment/lawful/lightgreen
 OPTIONS=hilite_status:experience-level/changed/white/always/cyan
-# Specify multiple cutoffs for all ability scores.
+# Specify multiple cutoffs for all ability scores
 OPTIONS=hilite_status:characteristics/<5/red
 OPTIONS=hilite_status:characteristics/>6/orange
 OPTIONS=hilite_status:characteristics/>8/brown
