@@ -52,7 +52,8 @@ OPTIONS=whatis_menu
 #########
 OPTIONS=color
 #OPTIONS=!use_darkgray   # Don't use dark gray fg on a black terminal bg
-OPTIONS=hitpointbar      # Color name and rank in status line
+# Color name and rank in status line
+OPTIONS=hitpointbar
 
 OPTIONS=statushilites:10
 OPTIONS=hilite_status:gold/always/yellow
