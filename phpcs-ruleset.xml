@@ -63,11 +63,6 @@
     </properties>
 </rule>
 <rule ref="Generic.PHP.UpperCaseConstant"/>
-<rule ref="Generic.Strings.UnnecessaryStringConcat">
-    <properties>
-        <property name="error" value="false"/>
-    </properties>
-</rule>
 <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 <rule ref="MySource.PHP.EvalObjectFactory"/>
 <rule ref="MySource.PHP.ReturnFunctionValue"/>
