@@ -126,15 +126,16 @@ MSGTYPE=stop "You can no longer breathe."
 MSGTYPE=stop "You're turning blue."
 MSGTYPE=stop "Your consciousness is fading."
 MSGTYPE=stop "You feel deathly sick."
-MSGTYPE=stop "You feel (much|even) worse."
+MSGTYPE=stop "You feel * worse."
 # Things that aren't dangerous by themselves but could kill you if you don't notice
 MSGTYPE=stop "You fail to cast the spell correctly."
-MSGTYPE=stop "You see here a c(hi|o)ckatrice corpse."
-MSGTYPE=stop "You are beginning to feel weak."
+MSGTYPE=stop "You see here a *trice corpse."
+MSGTYPE=stop "You are beginning to feel *"
 # Don't speed past wrest message when wresting
-MSGTYPE=stop "You wrest .*"
+MSGTYPE=stop "You wrest*"
 # Don't miss the vibrating square
-MSGTYPE=stop "You feel a strange vibration under your *."
-MSGTYPE=stop "You feel a strange vibration beneath you."
+MSGTYPE=stop "You feel a strange vibration *"
 MSGTYPE=stop "You hear *"
 MSGTYPE=stop "You find a hidden passage."
+# Enhancements
+MSGTYPE=stop "You feel more confident in your weapon skills."
