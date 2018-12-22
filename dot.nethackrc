@@ -33,7 +33,6 @@ OPTIONS=dark_room
 OPTIONS=hilite_pet
 OPTIONS=hilite_pile
 OPTIONS=lit_corridor
-OPTIONS=mention_walls
 OPTIONS=msg_window:reversed
 OPTIONS=msghistory:40
 OPTIONS=pile_limit:0
