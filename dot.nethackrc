@@ -121,7 +121,7 @@ SYMBOLS=S_boulder:8
 ############
 # MSGTYPEs #
 ############
-# delayed instadeaths
+# Delayed instadeaths
 MSGTYPE=stop "The .* (grabs|swings itself around) you!"
 MSGTYPE=stop "You don't feel very well."
 MSGTYPE=stop "You are turning a little green."
@@ -139,15 +139,37 @@ MSGTYPE=stop "You're turning blue."
 MSGTYPE=stop "Your consciousness is fading."
 MSGTYPE=stop "You feel deathly sick."
 MSGTYPE=stop "You feel * worse."
+MSGTYPE=stop "You faint .*"
+MSGTYPE=stop ".* needs food.*"
 # Things that aren't dangerous by themselves but could kill you if you don't notice
 MSGTYPE=stop "You fail to cast the spell correctly."
-MSGTYPE=stop "You see here a *trice corpse."
-MSGTYPE=stop "You are beginning to feel *"
+MSGTYPE=stop "You see here a .*trice corpse."
+MSGTYPE=stop "You are beginning to feel .*"
+# Traps
+MSGTYPE=stop "A trap door .*"
+MSGTYPE=stop "A cloud of gas .*"
+MSGTYPE=stop "You are splashed.*"
 # Don't speed past wrest message when wresting
-MSGTYPE=stop "You wrest*"
+MSGTYPE=stop "You wrest.*"
 # Don't miss the vibrating square
-MSGTYPE=stop "You feel a strange vibration *"
-MSGTYPE=stop "You hear *"
-MSGTYPE=stop "You find a hidden passage."
+MSGTYPE=stop "You feel a strange vibration .*"
 # Enhancements
 MSGTYPE=stop "You feel more confident in your weapon skills."
+# Other
+MSGTYPE=stop "You hear .*"
+MSGTYPE=stop "You feel .*"
+MSGTYPE=stop "You find .*"
+MSGTYPE=stop "You kill .*"
+MSGTYPE=stop "You smell .*"
+MSGTYPE=stop "Something is written .*"
+MSGTYPE=stop "You destroy .*"
+MSGTYPE=stop "You experience .*"
+MSGTYPE=stop ".* wields .*"
+MSGTYPE=stop "You find a hidden passage."
+MSGTYPE=stop ".* steps reluctantly.*"
+MSGTYPE=stop ".* hidden.*"
+MSGTYPE=stop ".* suddenly.*"
+MSGTYPE=stop ".* picks up .*"
+MSGTYPE=stop ".* is killed.*"
+# Hide annoying messages
+MSGTYPE=hide "You swap places with .*"
