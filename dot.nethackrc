@@ -72,13 +72,26 @@ OPTIONS=hilite_status:hitpoints/<100%/green
 OPTIONS=hilite_status:hitpoints/<60%/yellow
 OPTIONS=hilite_status:hitpoints/<40%/red
 
+# Enable coloring of inventory items (top->down)
 OPTIONS=menucolors
-MENUCOLOR="blessed"=cyan&bold
+# Food that never rots
+MENUCOLOR="lembas wafer"=blue
+MENUCOLOR="cram ration"=blue
+MENUCOLOR="fortune cookie"=blue
+MENUCOLOR="lizard corpse"=blue
+MENUCOLOR="lichen corpse"=blue
+# Bad things
 MENUCOLOR="cursed"=orange&bold
+MENUCOLOR="scroll of amnesia"=red
+MENUCOLOR="bat corpse"=red
+MENUCOLOR="yellow mold corpse"=red
+MENUCOLOR="a heavy iron ball"=red
+# Good things
+MENUCOLOR="blessed"=cyan&bold
 MENUCOLOR="uncursed"=green
-MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=red&bold
 MENUCOLOR="Amulet of Yendor named"=magenta
 MENUCOLOR="gold piece"=yellow
+#MENUCOLOR="loadstone\|wand \(of\|called\) cancellation"=red&bold
 
 ################
 # Menu Options #
