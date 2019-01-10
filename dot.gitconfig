@@ -38,7 +38,7 @@
 	editor              = vim
 	pager               = less --tabs=4 -RS
 	safecrlf            = true
-	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
+	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,-tab-in-indent,-blank-at-eof,tabwidth=4
 
 [diff]
 	mnemonicPrefix      = true
