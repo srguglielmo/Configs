@@ -80,6 +80,9 @@ if [ "$(uname)" = "Darwin" ]; then
 
 	# Completions provided by additional homebrew packages
 	$fpath=(/usr/local/share/zsh/site-functions $fpath)
+
+	# Brewed cURL
+	$fpath=(/usr/local/opt/curl/share/zsh/site-functions $fpath)
 elif [ "$(uname)" = "Linux" ]; then
 	$fpath=(/usr/share/zsh/site-functions)
 fi
