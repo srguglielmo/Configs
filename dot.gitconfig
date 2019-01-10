@@ -3,8 +3,11 @@
 #
 
 [advice]
-	pushUpdateRejected = false
-	statusHints = false
+#	detachedHead        = false
+	pushUpdateRejected  = false
+	statusHints         = false
+	waitingForEditor    = false
+
 [alias]
 	b = branch
 	bl = branch -av
