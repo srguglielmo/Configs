@@ -44,6 +44,7 @@
 	mnemonicPrefix      = true
 	submodule           = log
 	tool                = vimdiff
+	wsErrorHighlight    = old,new
 
 [difftool]
 	prompt              = false
