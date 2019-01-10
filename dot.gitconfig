@@ -53,6 +53,9 @@
 	fsckObjects         = true
 	prune               = true
 
+[gpg]
+	program             = /usr/local/bin/gpg
+
 [interactive]
 	singleKey           = true
 
