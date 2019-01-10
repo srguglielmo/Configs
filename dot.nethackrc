@@ -30,7 +30,7 @@ OPTIONS=pickup_burden:Burdened
 ###################
 OPTIONS=autodescribe
 OPTIONS=dark_room
-OPTIONS=hilite_pet
+#OPTIONS=hilite_pet
 OPTIONS=hilite_pile
 OPTIONS=lit_corridor
 OPTIONS=msg_window:reversed
