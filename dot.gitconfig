@@ -9,14 +9,16 @@
 	waitingForEditor    = false
 
 [alias]
-	b = branch
-	bl = branch -av
-	ci = commit
-	co = checkout
-	dns = diff --name-status
-	ff = merge --ff-only
-	in = log HEAD..@{u}
-	out = log @{u}..HEAD
+	bl                  = branch -av
+	ci                  = commit
+	co                  = checkout
+	cpx                 = cherry-pick -x
+	dns                 = diff --name-status
+	ff                  = merge --ff-only
+	in                  = log HEAD..@{u}
+	out                 = log @{u}..HEAD
+	rb                  = rebase -i @{u}
+
 [color]
 	ui = auto
 [column]
