@@ -1,3 +1,7 @@
+#
+# srg's git config
+#
+
 [advice]
 	pushUpdateRejected = false
 	statusHints = false
