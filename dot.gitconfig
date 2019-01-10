@@ -20,52 +20,70 @@
 	rb                  = rebase -i @{u}
 
 [color]
-	ui = auto
+	ui                  = auto
+
 [column]
-	ui = auto
-	branch = auto
-	clean = auto
-	status = auto
-	tag = auto
+	ui                  = auto
+	branch              = auto
+	clean               = auto
+	status              = auto
+	tag                 = auto
+
 [commit]
-	gpgsign = true
+	gpgsign             = true
+
 [core]
-	autocrlf = false
-	compression = 6
-	editor = vim
-	safecrlf = true
-	whitespace = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
+	autocrlf            = false
+	compression         = 6
+	editor              = vim
+	pager               = less --tabs=4 -RS
+	safecrlf            = true
+	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,blank-at-eof,tabwidth=4
+
 [diff]
-	mnemonicPrefix = true
-	submodule = log
-	tool = vimdiff
+	mnemonicPrefix      = true
+	submodule           = log
+	tool                = vimdiff
+
 [difftool]
-	prompt = false
+	prompt              = false
+
 [fetch]
-	fsckObjects = true
-	prune = true
+	fsckObjects         = true
+	prune               = true
+
 [interactive]
-	singleKey = true
+	singleKey           = true
+
 [log]
-	date = relative
+	date                = relative
+
 [merge]
-	tool = vimdiff
+	tool                = vimdiff
+
 [pager]
-	branch = false
+	branch              = false
+
 [push]
-	default = nothing
+	default             = nothing
+
 [rebase]
-	abbreviateCommands = true
-	instructionFormat = %h %G? (%an <%ae>) %s
+	abbreviateCommands  = true
+	instructionFormat   = %h %G? (%an <%ae>) %s
 	missingCommitsCheck = error
-	stat = true
+	stat                = true
+
 [receive]
-	fsckObjects = true
+	fsckObjects         = true
+
 [status]
-	submoduleSummary = true
+	submoduleSummary    = true
+
 [transfer]
-	fsckObjects = true
+	fsckObjects         = true
+
 [user]
-	#email = 
-	name = Stephen Guglielmo
-	#signingkey = 
+	#email               = 
+	name                = Stephen Guglielmo
+	#signingkey          = 
+
