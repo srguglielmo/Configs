@@ -50,7 +50,7 @@ alias rm='rm -iv'
 alias vi='vim'
 
 # Global aliases
-#alias -g G="| grep"
+alias -g G="| grep"
 #alias -g L="| $PAGER"
 
 # Suffix aliases ("text.NAME" -> "VALUE text.NAME")
