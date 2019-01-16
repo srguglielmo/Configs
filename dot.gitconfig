@@ -3,7 +3,7 @@
 #
 
 [advice]
-#	detachedHead        = false
+	detachedHead        = false
 	pushUpdateRejected  = false
 	statusHints         = false
 	waitingForEditor    = false
