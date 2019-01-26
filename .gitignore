@@ -1,3 +1,6 @@
 # Weechat
-/dot.weechat/script/plugins.xml.gz
+/dot.weechat/logs/
 /dot.weechat/perl/autoload/
+/dot.weechat/python/autoload/
+/dot.weechat/script/plugins.xml.gz
+/dot.weechat/weechat.log
