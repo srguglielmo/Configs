@@ -27,11 +27,12 @@ export VISUAL=vim
 # Note: Aliases stack
 
 if [ "$(uname)" = "Darwin" ]; then
-	# Use GNU utils on Mac
+	# Use GNU utils when on MacOS (with Homebrew)
 	alias find='gfind'
 	alias grep='ggrep --color=auto'
-	alias l='ls -aFGhl'
-	alias ls='ls -aFGh'
+	alias l="gls -AFhl --color --time-style='+%Y-%m-%d'"
+	#alias ls='ls -aFGh'
+	alias readlink='greadlink'
 	alias sed='gsed'
 	alias units='gunits'
 elif [ "$(uname)" = "Linux" ]; then
@@ -44,8 +45,9 @@ alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias gs='git status'
-alias gfs='git fetch --verbose --prune --all && git status'
+alias gfs='git fetch --verbose --prune --all; git status; git stash list'
 alias mv='mv -iv'
+alias opensslbrew='/usr/local/opt/openssl/bin/openssl' # Brew's openssl
 alias rm='rm -iv'
 alias vi='vim'
 
@@ -272,7 +274,7 @@ zmodload zsh/datetime
 #zmodload zsh/files
 
 # Provide the -pcre-match comparison operator
-zmodload zsh/pcre
+#zmodload zsh/pcre
 
 # Scheduled commands
 #zmodload zsh/sched
