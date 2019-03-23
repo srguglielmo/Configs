@@ -22,11 +22,6 @@
 	ui                  = auto
 [column]
 	ui                  = auto
-	branch              = auto
-	clean               = auto
-	status              = auto
-	tag                 = auto
-
 [commit]
 	gpgsign             = true
 [core]
