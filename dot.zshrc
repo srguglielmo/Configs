@@ -47,7 +47,7 @@ alias cp='cp -iv'
 alias dqr='diff -qr --exclude=".git"'
 alias dv='dirs -v'
 alias gs='git status'
-alias gfs='git fetch --verbose --prune --all; git status; git stash list'
+alias gfs='git fetch --verbose --all; git status; git stash list'
 alias mv='mv -iv'
 alias opensslbrew='/usr/local/opt/openssl/bin/openssl' # Brew's openssl
 alias rm='rm -iv'
