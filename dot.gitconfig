@@ -17,7 +17,7 @@
 	lsgi                = ls-files -i --exclude-from=.gitignore
 	out                 = log @{u}..HEAD
 	rb                  = rebase -i @{u}
-
+	shown               = show --name-status
 [color]
 	ui                  = auto
 [column]
