@@ -47,6 +47,7 @@
 [interactive]
 	singleKey           = true
 [log]
+	abbrevCommit        = true
 	date                = relative
 [merge]
 	tool                = vimdiff
