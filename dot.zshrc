@@ -29,11 +29,13 @@ export VISUAL=vim
 if [ "$(uname)" = "Darwin" ]; then
 	# Use GNU utils when on MacOS (with Homebrew)
 	alias find='gfind'
+	alias dd='gdd'
 	alias grep='ggrep --color=auto'
 	alias l="gls -AFhl --color --time-style='+%Y-%m-%d'"
 	#alias ls='ls -aFGh'
 	alias readlink='greadlink'
 	alias sed='gsed'
+	alias sort='gsort'
 	alias units='gunits'
 elif [ "$(uname)" = "Linux" ]; then
 	alias grep='grep --color=auto'
