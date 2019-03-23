@@ -1,13 +1,11 @@
 #
 # srg's git config
 #
-
 [advice]
 	detachedHead        = false
 	pushUpdateRejected  = false
 	statusHints         = false
 	waitingForEditor    = false
-
 [alias]
 	bl                  = branch -av
 	ci                  = commit
@@ -22,7 +20,6 @@
 
 [color]
 	ui                  = auto
-
 [column]
 	ui                  = auto
 	branch              = auto
@@ -32,7 +29,6 @@
 
 [commit]
 	gpgsign             = true
-
 [core]
 	autocrlf            = false
 	compression         = 6
@@ -40,56 +36,42 @@
 	pager               = less --tabs=4 -RS
 	safecrlf            = true
 	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,-tab-in-indent,-blank-at-eof,tabwidth=4
-
 [diff]
 	mnemonicPrefix      = true
 	submodule           = log
 	tool                = vimdiff
 	wsErrorHighlight    = old,new
-
 [difftool]
 	prompt              = false
-
 [fetch]
 	fsckObjects         = true
 	prune               = true
 
 [gpg]
 	program             = /usr/local/bin/gpg
-
 [interactive]
 	singleKey           = true
-
 [log]
 	date                = relative
-
 [merge]
 	tool                = vimdiff
-
 [pager]
 	branch              = false
 	stash               = false
-
 [push]
 	default             = nothing
-
 [rebase]
 	abbreviateCommands  = true
 	instructionFormat   = (%an <%ae>) %s
 	missingCommitsCheck = error
 	stat                = true
-
 [receive]
 	fsckObjects         = true
-
 [status]
 	submoduleSummary    = true
-
 [transfer]
 	fsckObjects         = true
-
 [user]
 	#email               = 
 	name                = Stephen Guglielmo
 	#signingkey          = 
-
