@@ -40,7 +40,8 @@
 [fetch]
 	fsckObjects         = true
 	prune               = true
-
+[gc]
+	autoDetach          = false
 [gpg]
 	program             = /usr/local/bin/gpg
 [interactive]
