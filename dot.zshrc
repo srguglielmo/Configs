@@ -344,7 +344,7 @@ setopt HASH_EXECUTABLES_ONLY					# Only "cache" the path to to exec files
 setopt INTERACTIVE_COMMENTS						# Allow comments on interactive sessions
 unsetopt PATH_SCRIPT							# Don't search in path for a passed script argument
 unsetopt RM_STAR_SILENT							# Not even in ksh/sh emulation mode
-setopt RM_STAR_WAIT								# Pause 10 sec after a rm wildcard
+#setopt RM_STAR_WAIT							# Pause 10 sec after a rm wildcard
 
 # Job control
 setopt LONG_LIST_JOBS							# Long listing by default
