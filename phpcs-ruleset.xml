@@ -21,7 +21,7 @@
 	<rule ref="Generic.Files.ByteOrderMark" />
 	<rule ref="Generic.Files.LineEndings">
 		<properties>
-			<property name="eolChar" value="\r\n" />
+			<property name="eolChar" value="\n" />
 		</properties>
 	</rule>
 	<rule ref="Generic.Files.LineLength">
