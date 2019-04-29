@@ -428,7 +428,7 @@ HISTORY_IGNORE="(l|ls|pwd|exit)"				# Ignore pattern for history entries
 HISTSIZE=10000
 #KEYTIMEOUT=									# In hundredths of a second
 LANG=en_US.UTF-8
-path=(/usr/local/bin /usr/local/sbin /usr/bin /usr/sbin /bin /sbin)
+path=(~/.composer/vendor/bin /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin)
 
 # The main prompt
 PS1="%F{057}%n%F{251}@%F{172}%M%f "				# user@host
