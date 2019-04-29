@@ -27,20 +27,22 @@ export VISUAL=vim
 # Note: Aliases stack
 
 if [ "$(uname)" = "Darwin" ]; then
-	# Use GNU utils when on MacOS (with Homebrew)
-	alias find='gfind'
-	alias dd='gdd'
-	alias grep='ggrep --color=auto'
-	alias l="gls -AFhl --color --time-style='+%Y-%m-%d'"
-	#alias ls='ls -aFGh'
-	alias readlink='greadlink'
-	alias sed='gsed'
-	alias sort='gsort'
-	alias units='gunits'
-elif [ "$(uname)" = "Linux" ]; then
-	alias grep='grep --color=auto'
-	alias l='ls -aFhl --color=auto'
 fi
+
+# Use GNU utils if they exist as separate binaries (Homebrew on MacOS)
+(( $+commands[gcp] ))       && alias cp='gcp -ipv'
+(( $+commands[gdd] ))       && alias dd='gdd'
+(( $+commands[gfind] ))     && alias find='gfind'
+(( $+commands[ggrep] ))     && alias grep='ggrep --color=auto'
+(( $+commands[gls] ))       && alias l="gls -AFhl --color --time-style='+%Y-%m-%d'"
+(( $+commands[gls] ))       && alias ls='gls -AFh --color'
+(( $+commands[gmv] ))       && alias mv='gmv -iv'
+(( $+commands[greadlink] )) && alias readlink='greadlink'
+(( $+commands[grm] ))       && alias rm='grm -Iv --one-file-system'
+(( $+commands[gsed] ))      && alias sed='gsed'
+(( $+commands[gsort] ))     && alias sort='gsort'
+(( $+commands[gtar] ))      && alias tar='gtar'
+(( $+commands[gunits] ))    && alias units='gunits'
 
 # All-OS aliases
 alias cp='cp -iv'
