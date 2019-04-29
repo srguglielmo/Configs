@@ -277,6 +277,9 @@ zmodload zsh/datetime
 
 # Provide the -pcre-match comparison operator
 #zmodload zsh/pcre
+# Provide access to the 'command' array (the internal
+# hash table of external commands)
+zmodload zsh/parameter
 
 # Scheduled commands
 #zmodload zsh/sched
