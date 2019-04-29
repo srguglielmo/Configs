@@ -27,6 +27,8 @@ export VISUAL=vim
 # Note: Aliases stack
 
 if [ "$(uname)" = "Darwin" ]; then
+	# Make homebrew stop automatically running 'cleanup' after 'upgrade's
+	export HOMEBREW_NO_INSTALL_CLEANUP=true
 fi
 
 # Use GNU utils if they exist as separate binaries (Homebrew on MacOS)
