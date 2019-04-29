@@ -28,7 +28,6 @@
 	gpgsign             = true
 [core]
 	autocrlf            = false
-	compression         = 9
 	editor              = vim
 	pager               = less --tabs=4 -RS
 	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,-tab-in-indent,-blank-at-eof,tabwidth=4
