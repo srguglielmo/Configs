@@ -13,6 +13,7 @@
 	cpx                 = cherry-pick -x
 	diffc               = diff --cached
 	dns                 = diff --name-status
+	dnsc                = diff --cached --name-status
 	ff                  = merge --ff-only
 	in                  = log HEAD..@{u}
 	lsgi                = ls-files -i --exclude-from=.gitignore
