@@ -7,7 +7,7 @@
 #############
 # Lawful dwarven valkyries are the strongest role, so start with that
 OPTIONS=align:lawful
-OPTIONS=catname:Blounds
+OPTIONS=catname:Rooster
 # Futurama's Parasites Lost
 OPTIONS=fruit:Pelvic Splanchnic Ganglion
 OPTIONS=gender:female
