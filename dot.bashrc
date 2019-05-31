@@ -1,40 +1,43 @@
 #
-# ~/.bashrc
+# srg"s ~/.bashrc
 #
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# If not running interactively, don"t do anything
+if [[ $- != *i* ]]; then
+	return
+fi
 
 # Prompts
-if [ $EUID -eq 0 ]; then
-	PS1='\[\e[1;31m\][\u@\H] \w\n\$\[\e[0m\] '
+if [[ "$EUID" -eq 0 ]]; then
+	PS1="\[$(tput setaf 1)$(tput bold)\][\u@\h] \w\n\$\[$(tput sgr0)\] "
 else
-	PS1='\[\e[1;32m\][\u@\H] \w\n\$\[\e[0m\] '
+	PS1="\[$(tput setaf 2)\][\u@\h] \w\n\$\[$(tput sgr0)\] "
 fi
-PS2='> '
-PS3='> '
-PS4='+ '
+PS2="> "
+PS3="> "
+PS4="+ "
 
-# Don't save history, but keep it for the session
-HISTSIZE=500
-unset HISTFILE
+# Save history
+HISTCONTROL="ignorespace:erasedups"
+HISTSIZE=250
+HISTFILESIZE=250
+HISTFILE="~/.bash_history"
+
+# Shell options
+shopt -s autocd checkjobs
+shopt -s checkwinsize histappend
 
 # Env Vars
-export VISUAL=vim
-export EDITOR=vim
-export LESSHISTFILE=/dev/null
-export LESSSECURE
+export VISUAL="vim"
+export EDITOR="vim"
+export LANG="en_US.UTF-8"
+export LESSHISTFILE="/dev/null"
+export LESSSECURE=1
 
 # Aliases
-alias l='ls -aFhl --color=auto'
-alias rm='rm -iv --one-file-system'
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias mkdir='mkdir -v'
-alias vi='vim'
-alias top='htop'
-alias se='sudoedit'
-alias sudo="sudo " # Use calling user's env
-
-# Check window size after each command
-shopt -s checkwinsize
+alias cp="cp -iv"
+alias l="ls -aFhl --color=auto"
+alias mkdir="mkdir -v"
+alias mv="mv -iv"
+alias rm="rm -iv --one-file-system"
+alias vi="vim"
