@@ -1,3 +1,2 @@
 # srg's .zshenv
-# Run by all shells, (non-)interactive and (non-)login.
-
+# Run by _all_ shells.
