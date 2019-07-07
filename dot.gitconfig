@@ -1,8 +1,8 @@
 #
 # srg's git config
 #
+
 [advice]
-	#detachedHead        = false
 	pushUpdateRejected  = false
 	statusHints         = false
 	waitingForEditor    = false
