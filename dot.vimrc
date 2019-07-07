@@ -90,10 +90,10 @@ let g:airline#extensions#branch#enabled = 1
 "set ttimeoutlen=20
 
 " netrw
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0         " Don't show the top banner
-let g:netrw_browse_split = 3   " Open files in a new tab
-let g:netrw_winsize = 20       " Percent width of window
+let g:netrw_liststyle=3
+let g:netrw_banner=0           " Don't show the top banner
+let g:netrw_browse_split=3     " Open files in a new tab
+let g:netrw_winsize=20         " Percent width of window
 
 " Enable syntax highlighting
 colorscheme deus
