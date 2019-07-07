@@ -14,7 +14,6 @@
 	dns                 = diff --name-status
 	ff                  = merge --ff-only
 	in                  = log HEAD..@{u}
-	lsgi                = ls-files -i --exclude-from=.gitignore
 	out                 = log @{u}..HEAD
 	rb                  = rebase -i @{u}
 	shown               = show --name-status
