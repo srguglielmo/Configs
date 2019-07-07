@@ -19,6 +19,14 @@ if [[ -x /usr/local/bin/fortune ]]; then
 	fi
 fi
 
+#if [[ -x /usr/local/bin/http ]]; then
+#	http --timeout 3 --print b https://ifconfig.co/json
+#fi
+
+#if [[ -x /usr/local/bin/ansiweather ]]; then
+#	ansiweather
+#fi
+
 #log
 
 # What year is it again?
