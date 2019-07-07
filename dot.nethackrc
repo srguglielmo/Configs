@@ -82,10 +82,11 @@ MENUCOLOR="lizard corpse"=blue
 MENUCOLOR="lichen corpse"=blue
 # Bad things
 MENUCOLOR="cursed"=orange&bold
-MENUCOLOR="scroll of amnesia"=red
-MENUCOLOR="bat corpse"=red
-MENUCOLOR="yellow mold corpse"=red
-MENUCOLOR="a heavy iron ball"=red
+MENUCOLOR="scroll of amnesia"=red&bold
+MENUCOLOR="bat corpse"=red&bold
+MENUCOLOR="yellow mold corpse"=red&bold
+MENUCOLOR="a heavy iron ball"=red&bold
+MENUCOLOR="unpaid"=red&bold
 # Good things
 MENUCOLOR="blessed"=cyan&bold
 MENUCOLOR="uncursed"=green
