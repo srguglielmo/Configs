@@ -54,7 +54,6 @@
 	tool                = vimdiff
 [pager]
 	branch              = false
-	stash               = false
 [push]
 	default             = nothing
 [rebase]
