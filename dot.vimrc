@@ -11,7 +11,7 @@ set errorbells                 " Beep or flash screen on errors
 set formatoptions+=j           " Delete comment character when joining commented lines
 set hidden                     " Allow switching away from changed buffers without writing
 set history=100                " History of :commands and search patterns
-set ignorecase                 " For search patterns
+set ignorecase                 " In search patterns
 set noincsearch                " Never show search results incrementally
 set laststatus=2               " Always show status line
 set matchtime=10               " Tenths of a second to show matching brace
@@ -63,7 +63,7 @@ set tabstop=4                  " Width of an actual tab character
 set directory=~/.vim/swapdir//
 
 " Dedicated backup dir
-set backup                     " Keep the backup around
+set backup                     " Keep backups around
 set backupcopy=yes             " Make backups by copying original
 set backupdir=~/.vim/backupdir/
 set writebackup                " Make a backup before overwriting a file
