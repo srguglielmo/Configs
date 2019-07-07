@@ -75,26 +75,21 @@ set undofile
 " Don't backup or use a swap file for crontabs
 autocmd filetype crontab setlocal nowritebackup noswapfile
 
-""""""""""""""""""""""""""""
-" Vim plugins, themes, etc "
-""""""""""""""""""""""""""""
-
-" Airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline_skip_empty_sections = 1    " Small performance penalty
-"let g:airline_extensions = []           " Only enable these extensions
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-"let g:airline#extensions#branch#vcs_priority = ["git"]
-"set ttimeoutlen=20
-
 " netrw
 let g:netrw_liststyle=3
 let g:netrw_banner=0           " Don't show the top banner
 let g:netrw_browse_split=3     " Open files in a new tab
 let g:netrw_winsize=20         " Percent width of window
 
+"""""""""""
+" Add-Ons "
+"""""""""""
+
 " Enable syntax highlighting
-colorscheme deus
+colors deus
+
+" Airline
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#formatter='unique_tail_improved'
+let g:airline_statusline_ontop=1
 
