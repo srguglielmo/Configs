@@ -15,10 +15,23 @@
 	ff                  = merge --ff-only
 	in                  = log HEAD..@{u}
 	out                 = log @{u}..HEAD
+	patch               = !git --no-pager diff --no-color
 	rb                  = rebase -i @{u}
 	shown               = show --name-status
 [color]
-	ui                  = auto
+	ui                  = true
+[color "diff"]
+	commit              = yellow bold
+	frag                = magenta bold
+	meta                = 11
+	new                 = green bold
+	old                 = red bold
+	whitespace          = red reverse
+[color "diff-highlight"]
+	newHighlight        = green bold 22
+	newNormal           = green bold
+	oldHighlight        = red bold 52
+	oldNormal           = red bold
 [column]
 	ui                  = auto
 [commit]
@@ -26,13 +39,15 @@
 [core]
 	autocrlf            = false
 	editor              = vim
-	pager               = less --tabs=4 -RS
+	pager               = /usr/local/bin/diff-so-fancy | /usr/local/bin/less --tabs=4 -FRX
 	whitespace          = blank-at-eol,space-before-tab,indent-with-non-tab,-tab-in-indent,-blank-at-eof,tabwidth=4
 [diff]
 	mnemonicPrefix      = true
 	submodule           = log
 	tool                = vimdiff
 	wsErrorHighlight    = old,new
+[diff-so-fancy]
+	stripLeadingSymbols = false
 [difftool]
 	prompt              = false
 [fetch]
