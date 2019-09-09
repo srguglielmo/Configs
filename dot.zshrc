@@ -6,8 +6,8 @@
 ############
 # Env vars must be first because commands below use them
 
-export EDITOR="vim -e"							# Ex-mode
-export GPG_TTY=$(tty)							# For gpg-agent
+export EDITOR="vim -e"                                     # Ex-mode
+export GPG_TTY=$(tty)                                      # For gpg-agent
 export LESS='--ignore-case --LONG-PROMPT --RAW-CONTROL-CHARS'
 export LESSHISTFILE=/dev/null
 export LESSSECURE=1
@@ -74,7 +74,7 @@ unalias which-command 2>/dev/null
 #############
 
 # Search path for function definitions
-$fpath=()										# Don't look anywhere unless told
+$fpath=()                                                  # Don't look anywhere unless told
 if [ "$(uname)" = "Darwin" ]; then
 	# Homebrew's zsh
 	$fpath=(/usr/local/opt/zsh/share/zsh/functions)
@@ -92,10 +92,10 @@ elif [ "$(uname)" = "Linux" ]; then
 fi
 
 # Functions to autoload from $fpath
-autoload -Uz compinit							# The new completion system
-autoload -Uz down-line-or-beginning-search		# Contrib; Match history down based on prefix
-autoload -Uz up-line-or-beginning-search		# Contrib; Match history up based on prefix
-autoload -Uz vcs_info							# Contrib; version control info
+autoload -Uz compinit                                      # The new completion system
+autoload -Uz down-line-or-beginning-search                 # Contrib; Match history down based on prefix
+autoload -Uz up-line-or-beginning-search                   # Contrib; Match history up based on prefix
+autoload -Uz vcs_info                                      # Contrib; version control info
 
 # Custom handling of unknown commands
 function command_not_found_handler {
@@ -175,12 +175,12 @@ function dp_upgrade {
 # and the git status/branch. This is called from my-zle-line-init()
 # and my-zle-keymap-select().
 function indicate-my-zle-mode {
-	RPS1='${vcs_info_msg_0_} '					# zsh's vcs_info
+	RPS1='${vcs_info_msg_0_} '                             # zsh's vcs_info
 
 	RPS1+='%F{251}['
 
 	# Print the vi mode that zle is in
-	if [ $KEYMAP = "main" ]; then				# "main" is insert mode
+	if [ $KEYMAP = "main" ]; then                          # "main" is insert mode
 		RPS1+='%F{040}INS'
 	elif [ $KEYMAP = "vicmd" ]; then
 		RPS1+='%K{088}%F{227}%BCMD%b%k'
@@ -194,7 +194,7 @@ function indicate-my-zle-mode {
 
 	RPS1+='%F{251}]%f'
 
-	zle reset-prompt							# Redraw the prompts
+	zle reset-prompt                                       # Redraw the prompts
 }
 
 # Set the zle mode and preserve the exit status of the previous command
@@ -244,9 +244,9 @@ function precmd {
 # KEY BINDINGS #
 ################
 
-bindkey -v										# Vi style in zle
-#bindkey '^i' complete-word						# Required for _expand
-#bindkey '^ ' autosuggest-accept				# ctrl+space to accept the autosuggestion
+bindkey -v                                                 # Vi style in zle
+#bindkey '^i' complete-word                                # Required for _expand
+#bindkey '^ ' autosuggest-accept                           # ctrl+space to accept the autosuggestion
 
 # Bind arrow up/down to the contrib functions to match history based
 # on the current line prefix (autoloaded above).
@@ -302,80 +302,80 @@ zmodload zsh/zutil
 ###########
 
 # Directory
-setopt AUTO_CD									# Change dir even if I forget to type `cd`
-setopt AUTO_PUSHD								# Add dirs to the directory stack automatically
-setopt PUSHD_IGNORE_DUPS						# Ignore dupes in the directory stack
-#setopt PUSHD_MINUS								# Swap the meaning of + and -
+setopt AUTO_CD                                             # Change dir even if I forget to type `cd`
+setopt AUTO_PUSHD                                          # Add dirs to the directory stack automatically
+setopt PUSHD_IGNORE_DUPS                                   # Ignore dupes in the directory stack
+#setopt PUSHD_MINUS                                        # Swap the meaning of + and -
 
 # Completion
-setopt ALWAYS_TO_END							# Move cursor to end, even when completing in a word
-setopt BASH_AUTO_LIST							# Show completion menu on 2nd tab
+setopt ALWAYS_TO_END                                       # Move cursor to end, even when completing in a word
+setopt BASH_AUTO_LIST                                      # Show completion menu on 2nd tab
 setopt COMPLETE_ALIASES
-setopt COMPLETE_IN_WORD							# Must be set for the _prefix completer
-setopt GLOB_COMPLETE							# Use a completion menu for glob pattern matching
-setopt LIST_ROWS_FIRST							# Left to right, not up to down
+setopt COMPLETE_IN_WORD                                    # Must be set for the _prefix completer
+setopt GLOB_COMPLETE                                       # Use a completion menu for glob pattern matching
+setopt LIST_ROWS_FIRST                                     # Left to right, not up to down
 
 # Expansion/Globbing
-unsetopt CASE_GLOB								# Make globbing case-insensitive
-setopt MARK_DIRS								# Append / to dirs resulting from globbing
-setopt NUMERIC_GLOB_SORT						# Sort numeric filenames numerically
-setopt REMATCH_PCRE								# =~ uses zsh/pcre (else uses the sytem ereg libraries)
-#unsetopt UNSET									# zsh-syntax-highlighting complains with this unset
+unsetopt CASE_GLOB                                         # Make globbing case-insensitive
+setopt MARK_DIRS                                           # Append / to dirs resulting from globbing
+setopt NUMERIC_GLOB_SORT                                   # Sort numeric filenames numerically
+setopt REMATCH_PCRE                                        # =~ uses zsh/pcre (else uses the sytem ereg libraries)
+#unsetopt UNSET                                            # zsh-syntax-highlighting complains with this unset
 setopt WARN_CREATE_GLOBAL
-#setopt WARN_NESTED_VAR							# vcs_info complains with this set
+#setopt WARN_NESTED_VAR                                    # vcs_info complains with this set
 
 # History
-unsetopt BANG_HIST								# I don't use ! commands
-setopt HIST_FCNTL_LOCK							# Lock the history file when writing
-setopt HIST_IGNORE_ALL_DUPS						# Remove dupes when writing
-setopt HIST_IGNORE_SPACE						# Ignore commands with spaces prepended
-setopt HIST_LEX_WORDS							# Be accurate when reading in a history file
-setopt HIST_NO_FUNCTIONS						# Don't record functions definitions
-setopt HIST_NO_STORE							# Department of Redundancy Department
-setopt HIST_REDUCE_BLANKS						# Dont record blank commands
-setopt HIST_SAVE_NO_DUPS						# Don't save any dupes when writing file
-setopt HIST_VERIFY								# Probably a good idea
-setopt INC_APPEND_HISTORY						# Append to history immediately (for multiple terms open at same time)
-unsetopt SHARE_HISTORY							# Not even in ksh mode
+unsetopt BANG_HIST                                         # I don't use ! commands
+setopt HIST_FCNTL_LOCK                                     # Lock the history file when writing
+setopt HIST_IGNORE_ALL_DUPS                                # Remove dupes when writing
+setopt HIST_IGNORE_SPACE                                   # Ignore commands with spaces prepended
+setopt HIST_LEX_WORDS                                      # Be accurate when reading in a history file
+setopt HIST_NO_FUNCTIONS                                   # Don't record functions definitions
+setopt HIST_NO_STORE                                       # Department of Redundancy Department
+setopt HIST_REDUCE_BLANKS                                  # Don't record blank commands
+setopt HIST_SAVE_NO_DUPS                                   # Don't save any dupes when writing file
+setopt HIST_VERIFY                                         # Probably a good idea
+setopt INC_APPEND_HISTORY                                  # Append to history immediately
+unsetopt SHARE_HISTORY                                     # Not even in ksh mode
 
 # Input/Output
-unsetopt CLOBBER								# Don't let > and >> clobber files (use >! or >>! instead)
-unsetopt FLOW_CONTROL							# Disable ctrl+s and ctrl+q
-setopt HASH_EXECUTABLES_ONLY					# Only "cache" the path to to exec files
-setopt INTERACTIVE_COMMENTS						# Allow comments on interactive sessions
-unsetopt PATH_SCRIPT							# Don't search in path for a passed script argument
-unsetopt RM_STAR_SILENT							# Not even in ksh/sh emulation mode
-#setopt RM_STAR_WAIT							# Pause 10 sec after a rm wildcard
+unsetopt CLOBBER                                           # Don't let > and >> clobber files (use >! or >>! instead)
+unsetopt FLOW_CONTROL                                      # Disable ctrl+s and ctrl+q
+setopt HASH_EXECUTABLES_ONLY                               # Only "cache" the path to to exec files
+setopt INTERACTIVE_COMMENTS                                # Allow comments on interactive sessions
+unsetopt PATH_SCRIPT                                       # Don't search in path for a passed script argument
+unsetopt RM_STAR_SILENT                                    # Not even in ksh/sh emulation mode
+#setopt RM_STAR_WAIT                                       # Pause 10 sec after a rm wildcard
 
 # Job control
-setopt LONG_LIST_JOBS							# Long listing by default
+setopt LONG_LIST_JOBS                                      # Long listing by default
 
 # Prompt
-setopt PROMPT_SUBST								# Required for vcs_info in prompt
+setopt PROMPT_SUBST                                        # Required for vcs_info in prompt
 
 # Scripts/functions
-setopt C_BASES									# Use 0xFF for hex numbers instead of 16#FF
-setopt LOCAL_LOOPS								# Use break/continue strictly
-unsetopt MULTI_FUNC_DEF							# Don't allow func definitions with multiple names
-#unsetopt MULTIOS								# Don't automatically add extra tees and pipes
-setopt PIPE_FAIL								# Return the exit status of the rightmost non-zero
-#setopt SOURCE_TRACE							# Display names of files as they're sourced
-#setopt XTRACE									# Print commands and args as they are executed
+setopt C_BASES                                             # Use 0xFF for hex numbers instead of 16#FF
+setopt LOCAL_LOOPS                                         # Strict usage of break/continue
+unsetopt MULTI_FUNC_DEF                                    # Don't allow func definitions with multiple names
+#unsetopt MULTIOS                                          # Don't automatically add extra tees and pipes
+setopt PIPE_FAIL                                           # Return the exit status of the rightmost non-zero
+#setopt SOURCE_TRACE                                       # Display names of files as they're sourced
+#setopt XTRACE                                             # Print commands and args as they are executed
 
 # ZLE
-#setopt COMBINING_CHARS							# Enabled in /etc/zshrc on MacOS
-unsetopt SINGLE_LINE_ZLE						# Not even in KSH emulation mode
+#setopt COMBINING_CHARS                                    # Enabled in /etc/zshrc on MacOS
+unsetopt SINGLE_LINE_ZLE                                   # Not even in KSH emulation mode
 
 ##########
 # STYLES #
 ##########
 
 # Completion
-zstyle ':completion:*' file-sort modification	# Sort completions by last modification time
-zstyle ':completion:*' group-name ''			# Separate completion types in the menu
-zstyle ':completion:*' list-colors ''			# Color listings (req group-name='')
-zstyle ':completion:*' menu select=2			# Use arrow keys with menu, min results
-zstyle ':completion:*' use-compctl false		# Never use old style completions
+zstyle ':completion:*' file-sort modification              # Sort completions by last modification time
+zstyle ':completion:*' group-name ''                       # Separate completion types in the menu
+zstyle ':completion:*' list-colors ''                      # Color listings (req group-name='')
+zstyle ':completion:*' menu select=2                       # Use arrow keys with menu, min results
+zstyle ':completion:*' use-compctl false                   # Never use old style completions
 zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:descriptions' format "%F{green}%d%f"
@@ -386,7 +386,7 @@ zstyle ':completion:*:descriptions' format "%F{green}%d%f"
 #zstyle ':completion:*:match:*' original true
 #zstyle ':completion:*:cd:*' ignore-parents parent pwd
 #zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
-#    'local-directories named-directories'	# Don't complete from cdpath
+#	'local-directories named-directories'                  # Don't complete from cdpath
 #zstyle ':completion:*:default' list-colors '=(#b)*(XX *)=32=31' '=*=32'
 ##zstyle ':completion:*' use-cache on
 ##zstyle ':completion:*' cache-path ~/.zsh/cache
@@ -405,12 +405,12 @@ zstyle ':completion:*:descriptions' format "%F{green}%d%f"
 
 # Git info
 zstyle ':vcs_info:*' actionformats '%F{251}[%F{227}%K{088}%b/%a%k%F{251}]%f'
-zstyle ':vcs_info:*' branchformat '%b'			# %b
-zstyle ':vcs_info:*' check-for-changes true		# Enable use of %c and %u
-zstyle ':vcs_info:*' enable git					# Only use git (not svn, etc)
+zstyle ':vcs_info:*' branchformat '%b'                     # %b
+zstyle ':vcs_info:*' check-for-changes true                # Enable use of %c and %u
+zstyle ':vcs_info:*' enable git                            # Only use git (not svn, etc)
 zstyle ':vcs_info:*' formats '%F{251}[%F{040}%c%u%b%F{251}]%f'
-zstyle ':vcs_info:*' stagedstr '%F{057}Stg '	# %c
-zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg ' # %u
+zstyle ':vcs_info:*' stagedstr '%F{057}Stg '               # %c
+zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg '           # %u
 
 #############
 # VARIABLES #
@@ -418,15 +418,15 @@ zstyle ':vcs_info:*' unstagedstr '%F{172}Unstg ' # %u
 # Lowercase variables are arrays
 
 # ZSH vars
-cdpath=(. ~/Code)								# PATH, but for cd
-#CORRECT_IGNORE=								# Ignore pattern for spell correction
-#CORRECT_IGNORE_FILE=							# Ignore pattern for spell correction on filenames (See CORRECT_ALL)
-DIRSTACKSIZE=20									# Directory history size
-#fignore=()										# File suffixes to ignore during completion
+cdpath=(. ~/Code)                                          # PATH, but for cd
+#CORRECT_IGNORE=                                           # Ignore pattern for spell correction
+#CORRECT_IGNORE_FILE=                                      # Ignore pattern for spell correction on filenames
+DIRSTACKSIZE=20                                            # Directory history size
+#fignore=()                                                # File suffixes to ignore during completion
 HISTFILE=~/.zhistory
 HISTORY_IGNORE="(l|ls|cd|pwd|exit)"                        # Ignore pattern for history entries
 HISTSIZE=10000
-#KEYTIMEOUT=									# In hundredths of a second
+#KEYTIMEOUT=                                               # In hundredths of a second
 LANG=en_US.UTF-8
 path+=(/usr/local/opt/python/libexec/bin)                  # Default to python 3
 path+=(/Library/Frameworks/Mono.framework/Versions/Current/Commands)
@@ -436,21 +436,21 @@ path+=(/usr/local/sbin /usr/local/bin)                     # Local paths
 path=(/usr/sbin /usr/bin /sbin /bin)                       # System paths
 
 # The main prompt
-PS1="%F{057}%n%F{251}@%F{172}%M%f "				# user@host
-PS1+="%F{251}%~%f"								# directory
-PS1+=$'\n'										# newline
-PS1+='%(?.'										# If exit code is 0
-	#PS1+='(%?%)'								#   just display the exit code, no color
-PS1+='.'										# else
-	PS1+='%K{088}%F{227}%B'						#   start color and bold
-	PS1+='(%?%)'								#   print exit code
-	PS1+='%b%f%k '								#   end bold and color
-PS1+=')'										# end if
-PS1+="%F{040}%(2L.++.%#)%f "					# Display ++ if in a subshell, else %#
+PS1="%F{057}%n%F{251}@%F{172}%M%f "                        # user@host
+PS1+="%F{251}%~%f"                                         # directory
+PS1+=$'\n'                                                 # newline
+PS1+='%(?.'                                                # If exit code is 0
+	#PS1+='(%?%)'                                          #   just display the exit code, no color
+PS1+='.'                                                   # else
+	PS1+='%K{088}%F{227}%B'                                #   start color and bold
+	PS1+='(%?%)'                                           #   print exit code
+	PS1+='%b%f%k '                                         #   end bold and color
+PS1+=')'                                                   # endif
+PS1+="%F{040}%(2L.++.%#)%f "                               # If in subshell, print ++, else %#
 
-#REPORTMEMORY=200								# Min size in MB to report; Doesn't work right in MacOS
-#REPORTTIME=8									# Min seconds to report
-RPS1=""											# Must be empty to display the zle KEYMAP in RPS1 in the very first prompt
+#REPORTMEMORY=200                                          # Min size in MB to report; Doesn't work right in MacOS
+#REPORTTIME=8                                              # Min seconds to report
+RPS1=""                                                    # Set empty to display the KEYMAP in RPS1 for first prompt
 SAVEHIST=10000
 TIMEFMT='[%*E] [%U CPUusr] [%S CPUsys] [%MMiB Max]'
 TMPPREFIX=/tmp/zsh
