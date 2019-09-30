@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ruleset name="srg-phpcs-ruleset">
-	<description>Steve's custom PHP Code Sniffer ruleset</description>
+	<description>Steve's PHP Code Sniffer ruleset</description>
 	<config name="php_path" value="/usr/local/bin/php" />
 	<config name="tab_width" value="4" />
 	<rule ref="Generic.Classes.DuplicateClassName" />
@@ -79,7 +79,12 @@
 	<rule ref="MySource.PHP.ReturnFunctionValue" />
 	<rule ref="PEAR.Commenting.InlineComment" />
 	<rule ref="PEAR.ControlStructures.ControlSignature" />
-	<rule ref="PEAR.ControlStructures.MultiLineCondition" />
+	<rule ref="PEAR.ControlStructures.MultiLineCondition">
+		<properties>
+			<!-- Only one tab, not four spaces -->
+			<property name="indent" value="1" />
+		</properties>
+	</rule>
 	<rule ref="PEAR.Formatting.MultiLineAssignment" />
 	<rule ref="PEAR.Functions.ValidDefaultValue" />
 	<rule ref="PEAR.NamingConventions.ValidClassName" />
