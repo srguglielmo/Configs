@@ -435,7 +435,7 @@ path=(/usr/local/opt/python/libexec/bin)                   # Default to python 3
 path+=(~/Code/Composer/vendor/bin)                         # Local composer packages
 path+=(/usr/local/opt/curl-openssl/bin)                    # curl from Homebrew
 path+=(/usr/local/sbin /usr/local/bin)                     # Local paths
-path=(/usr/sbin /usr/bin /sbin /bin)                       # System paths
+path+=(/usr/sbin /usr/bin /sbin /bin)                      # System paths
 
 # The main prompt
 PS1="%F{057}%n%F{251}@%F{172}%M%f "                        # user@host
