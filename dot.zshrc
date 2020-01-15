@@ -32,19 +32,22 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 # Use GNU utils if they exist as separate binaries (Homebrew on MacOS)
-(( $+commands[gcp] ))       && alias cp='gcp -ipv'
-(( $+commands[gdd] ))       && alias dd='gdd'
-(( $+commands[gfind] ))     && alias find='gfind'
-(( $+commands[ggrep] ))     && alias grep='ggrep --color=auto'
-(( $+commands[gls] ))       && alias l="gls -AFhl --color --time-style='+%Y-%m-%d'"
-(( $+commands[gls] ))       && alias ls='gls -AFh --color'
-(( $+commands[gmv] ))       && alias mv='gmv -iv'
-(( $+commands[greadlink] )) && alias readlink='greadlink'
-(( $+commands[grm] ))       && alias rm='grm -Iv --one-file-system'
-(( $+commands[gsed] ))      && alias sed='gsed'
-(( $+commands[gsort] ))     && alias sort='gsort'
-(( $+commands[gtar] ))      && alias tar='gtar'
-(( $+commands[gunits] ))    && alias units='gunits'
+(( $+commands[gcp] ))       && alias cp       = 'gcp -ipv'
+(( $+commands[gdd] ))       && alias dd       = 'gdd'
+(( $+commands[gfind] ))     && alias find     = 'gfind'
+(( $+commands[ggrep] ))     && alias grep     = 'ggrep --color=auto'
+(( $+commands[gln] ))       && alias ln       = 'gln'
+(( $+commands[gls] ))       && alias l        = "gls -AFhl --color --time-style='+%Y-%m-%d'"
+(( $+commands[gls] ))       && alias ls       = 'gls -AFh --color'
+(( $+commands[gmv] ))       && alias mv       = 'gmv -iv'
+(( $+commands[greadlink] )) && alias readlink = 'greadlink'
+(( $+commands[grm] ))       && alias rm       = 'grm -Iv --one-file-system'
+(( $+commands[gsed] ))      && alias sed      = 'gsed'
+(( $+commands[gsort] ))     && alias sort     = 'gsort'
+(( $+commands[gtar] ))      && alias tar      = 'gtar'
+(( $+commands[gtr] ))       && alias tr       = 'gtr'
+(( $+commands[gunits] ))    && alias units    = 'gunits'
+(( $+commands[gxargs] ))    && alias xargs    = 'gxargs'
 
 # All-OS aliases
 alias dqr='diff -qr --exclude=".git"'
