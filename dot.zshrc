@@ -324,7 +324,7 @@ setopt MARK_DIRS                                           # Append / to dirs re
 setopt NUMERIC_GLOB_SORT                                   # Sort numeric filenames numerically
 setopt REMATCH_PCRE                                        # =~ uses zsh/pcre (else uses the sytem ereg libraries)
 #unsetopt UNSET                                            # zsh-syntax-highlighting complains with this unset
-setopt WARN_CREATE_GLOBAL
+#setopt WARN_CREATE_GLOBAL                                 # Something complains with this set
 #setopt WARN_NESTED_VAR                                    # vcs_info complains with this set
 
 # History
