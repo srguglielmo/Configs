@@ -374,7 +374,7 @@ unsetopt SINGLE_LINE_ZLE                                   # Not even in KSH emu
 ##########
 
 # Completion
-zstyle ':completion:*' file-sort modification              # Sort completions by last modification time
+zstyle ':completion:*' file-sort alphabetically
 zstyle ':completion:*' group-name ''                       # Separate completion types in the menu
 zstyle ':completion:*' list-colors ''                      # Color listings (req group-name='')
 zstyle ':completion:*' menu select=2                       # Use arrow keys with menu, min results
@@ -383,22 +383,21 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:descriptions' format "%F{green}%d%f"
 
+#zstyle ':completion:*' completer _list _complete _approximate
+#zstyle ':completion:*:approximate:*' max-errors 2 numeric
+
 #zstyle ':completion:*' completer _list _expand _complete _match _correct _approximate _prefix
 #zstyle ':completion::expand:*' tag-order expansions
-#zstyle ':completion:*:approximate:*' max-errors 2 numeric
 #zstyle ':completion:*:match:*' original true
 #zstyle ':completion:*:cd:*' ignore-parents parent pwd
 #zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 #	'local-directories named-directories'                  # Don't complete from cdpath
 #zstyle ':completion:*:default' list-colors '=(#b)*(XX *)=32=31' '=*=32'
-##zstyle ':completion:*' use-cache on
+#zstyle ':completion:*' use-cache on
 ##zstyle ':completion:*' cache-path ~/.zsh/cache
-#zstyle ':completion:*' squeeze-slashes true
 
 # compinstall setup
-#zstyle ':completion:*' completions 1
-#zstyle ':completion:*' expand prefix suffix
-#zstyle ':completion:*' glob 1
+zstyle ':completion:*' expand prefix suffix
 #zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 #zstyle ':completion:*' list-suffixes true
 #zstyle ':completion:*' prompt '%e found.'
