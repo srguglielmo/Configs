@@ -481,6 +481,9 @@ zle -N zle-line-init my-zle-line-init
 # Execute the completion function (which was autoloaded above)
 compinit
 
+# Completions for kubectl.
+source <(/usr/local/opt/kubernetes-cli/bin/kubectl completion zsh | sed '/_bash_comp/ s/^#*/#/')
+
 ZSH_SYNTAX_HIGHLIGHTING_SOURCED=no
 # Load zsh-syntax-highlighting (must be last)
 if [ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
