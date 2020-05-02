@@ -316,7 +316,6 @@ setopt BASH_AUTO_LIST                                      # Show completion men
 setopt COMPLETE_ALIASES
 setopt COMPLETE_IN_WORD                                    # Must be set for the _prefix completer
 setopt GLOB_COMPLETE                                       # Use a completion menu for glob pattern matching
-setopt LIST_ROWS_FIRST                                     # Left to right, not up to down
 
 # Expansion/Globbing
 unsetopt CASE_GLOB                                         # Make globbing case-insensitive
@@ -432,7 +431,7 @@ HISTSIZE=10000
 LANG=en_US.UTF-8
 path=(/usr/local/opt/python/libexec/bin)                   # Default to python 3
 path+=(~/Code/Composer/vendor/bin)                         # Local composer packages
-path+=(/usr/local/opt/curl-openssl/bin)                    # curl from Homebrew
+path+=(/usr/local/opt/curl-openssl/bin)                    # Curl from Homebrew
 path+=(/usr/local/sbin /usr/local/bin)                     # Local paths
 path+=(/usr/sbin /usr/bin /sbin /bin)                      # System paths
 
