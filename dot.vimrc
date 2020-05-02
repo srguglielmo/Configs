@@ -59,36 +59,33 @@ set smarttab                   " Auto-tab
 set softtabstop=4              " Number of spaces per tab; Same as tabstop
 set tabstop=4                  " Width of an actual tab character
 
-" Dedicated swap dir
-set directory=~/.vim/swapdir//
-
-" Dedicated backup dir
+" Dedicated swap dir, backup dir, and undo dir.
+set directory=~/.vim/swapdir// " The double slash is intentional; see :help directory
 set backup                     " Keep backups around
 set backupcopy=yes             " Make backups by copying original
 set backupdir=~/.vim/backupdir/
 set writebackup                " Make a backup before overwriting a file
-
-" Persistent undo dir
 set undodir=~/.vim/undodir/
 set undofile
 
-" Don't backup or use a swap file for crontabs
-autocmd filetype crontab setlocal nowritebackup noswapfile
-
-" netrw
+" netrw file browser.
 let g:netrw_liststyle=3
 let g:netrw_banner=0           " Don't show the top banner
 let g:netrw_browse_split=3     " Open files in a new tab
-let g:netrw_winsize=20         " Percent width of window
+let g:netrw_winsize=50         " Percent width of window
 
 """""""""""
 " Add-Ons "
 """""""""""
 
-" Enable syntax highlighting
+" https://github.com/ajmwagar/vim-deus
+" ~/.vim/vim-deus/colors/
 colors deus
+if &diff
+	highlight! link DiffText MatchParen
+endif
 
-" Airline
+" https://github.com/vim-airline/vim-airline
+" ~/.vim/pack/dist/start/vim-airline
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#formatter='unique_tail_improved'
-
